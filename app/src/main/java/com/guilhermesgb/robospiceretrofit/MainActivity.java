@@ -18,20 +18,12 @@ public class MainActivity extends Activity {
 
     private SpiceManager spiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
 
-    private GuideItemsRequest guideItemsRequest;
+    private GuideItemsRequest guideItemsRequest = new GuideItemsRequest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            guideItemsRequest = new GuideItemsRequest();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this,
-                    "Cannot find interface for retrieving Guide Items pages", Toast.LENGTH_SHORT).show();
-            finish();
-        }
     }
 
     @Override
@@ -39,7 +31,7 @@ public class MainActivity extends Activity {
         spiceManager.start(this);
         super.onStart();
         guideItemsRequest.setPage(1);
-        spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentMethodResolvedSignature(),
+        spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentResolvedRequestSignature(),
                 DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
     }
 
