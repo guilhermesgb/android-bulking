@@ -1,0 +1,12 @@
+.gradle
+gradle
+gradlew
+gradlew.bat
+/local.properties
+/.idea/*
+!/.idea/.name
+!/.idea/vcs.xml
+.DS_Store
+/build
+/captures
+robospice+retrofit.iml
