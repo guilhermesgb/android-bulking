@@ -1,6 +1,8 @@
 package com.guilhermesgb.robospiceretrofit.network.network.requests;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.guilhermesgb.robospiceretrofit.model.ResponseModel;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitInterface;
 import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 
@@ -61,6 +63,12 @@ abstract public class ResolvedSignatureRequest extends RetrofitSpiceRequest<Resp
     public Response loadDataFromNetwork() throws Exception {
         Response response = doLoadDataFromNetwork(requestInterface);
         System.out.println(String.format("%s.... called!", getRequestSignature()));
+        JsonObject responseBody = new JsonParser()
+                .parse(ResponseModel.getBodyString(response)).getAsJsonObject();
+        String status = responseBody.get("status").getAsString();
+        if ("error".equals(status)) {
+            cancel();
+        }
         return response;
     }
 

@@ -21,8 +21,8 @@ import retrofit.client.Response;
 public class MainActivity extends Activity {
 
     private SpiceManager spiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
-
     private GuideItemsRequest guideItemsRequest;
+    private int currentPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
     protected void onStart() {
         spiceManager.start(this);
         super.onStart();
-        guideItemsRequest.setPage(1);
+        guideItemsRequest.setPage(currentPage++);
         spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentResolvedRequestSignature(),
                 DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
     }
@@ -71,6 +71,11 @@ public class MainActivity extends Activity {
                         "Retrieval of Guide Items page succeeded", Toast.LENGTH_SHORT).show();
                 for (GuideItem guideItem : guideItems) {
                     System.out.println(guideItem.getName() + " (" + guideItem.getId() + ")");
+                }
+                if (guideItems.size() != 0) {
+                    guideItemsRequest.setPage(currentPage++);
+                    spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentResolvedRequestSignature(),
+                            DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
                 }
             } catch (IOException e) {
                 e.printStackTrace();

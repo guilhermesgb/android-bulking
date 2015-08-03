@@ -23,8 +23,8 @@ public class GuideItem extends ResponseModel {
     private String website = null;
     private String address = null;
     private String schedule = null;
-    private Integer minCost = null;
-    private Integer maxCost = null;
+    private Double minCost = null;
+    private Double maxCost = null;
     private String cost = null;
     private String creditCard = null;
     private String breakfast = null;
@@ -234,12 +234,12 @@ public class GuideItem extends ResponseModel {
         setFieldValue(minCost, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.minCost = minCost.getAsInt();
+                GuideItem.this.minCost = minCost.getAsDouble();
             }
         });
     }
 
-    public Integer getMinCost() {
+    public Double getMinCost() {
         return this.minCost;
     }
 
@@ -248,12 +248,12 @@ public class GuideItem extends ResponseModel {
         setFieldValue(maxCost, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.maxCost = maxCost.getAsInt();
+                GuideItem.this.maxCost = maxCost.getAsDouble();
             }
         });
     }
 
-    public Integer getMaxCost() {
+    public Double getMaxCost() {
         return this.maxCost;
     }
 
