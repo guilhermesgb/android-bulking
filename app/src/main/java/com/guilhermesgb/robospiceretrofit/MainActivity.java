@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService;
 
 import com.guilhermesgb.robospiceretrofit.network.network.requests.GuideItemsRequest;
@@ -11,6 +12,9 @@ import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
+
+import java.io.IOException;
+import java.util.List;
 
 import retrofit.client.Response;
 
@@ -61,8 +65,19 @@ public class MainActivity extends Activity {
 
         @Override
         public void onRequestSuccess(Response response) {
-            Toast.makeText(MainActivity.this,
-                    "Retrieval of Guide Items page succeeded", Toast.LENGTH_SHORT).show();
+            try {
+                List<GuideItem> guideItems = GuideItem.parseGuideItems(response);
+                Toast.makeText(MainActivity.this,
+                        "Retrieval of Guide Items page succeeded", Toast.LENGTH_SHORT).show();
+                for (GuideItem guideItem : guideItems) {
+                    System.out.println(guideItem.getName() + " (" + guideItem.getId() + ")");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(MainActivity.this,
+                        "Retrieval of Guide Items page succeeded but failed to parse",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
