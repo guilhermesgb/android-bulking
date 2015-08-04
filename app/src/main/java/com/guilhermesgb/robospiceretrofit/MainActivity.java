@@ -6,9 +6,10 @@ import android.widget.Toast;
 
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService;
+import com.guilhermesgb.robospiceretrofit.network.requests.GuideItemsRequest;
 
-import com.guilhermesgb.robospiceretrofit.network.network.requests.GuideItemsRequest;
 import com.octo.android.robospice.SpiceManager;
+import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -58,9 +59,16 @@ public class MainActivity extends Activity {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
-            spiceException.printStackTrace();
-            Toast.makeText(MainActivity.this,
-                    "Retrieval of Guide Items page failed", Toast.LENGTH_SHORT).show();
+            if (spiceException instanceof NoNetworkException) {
+                Toast.makeText(MainActivity.this,
+                        "Retrieval of Guide Items page failed: no network!",
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(MainActivity.this,
+                        "Retrieval of Guide Items page failed", Toast.LENGTH_SHORT).show();
+                spiceException.printStackTrace();
+            }
         }
 
         @Override

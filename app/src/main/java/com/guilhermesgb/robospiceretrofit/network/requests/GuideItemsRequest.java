@@ -1,4 +1,6 @@
-package com.guilhermesgb.robospiceretrofit.network.network.requests;
+package com.guilhermesgb.robospiceretrofit.network.requests;
+
+import com.guilhermesgb.robospiceretrofit.network.requests.ResolvedSignatureRequest;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
