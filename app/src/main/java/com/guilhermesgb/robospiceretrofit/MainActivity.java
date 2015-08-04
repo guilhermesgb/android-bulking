@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this,
                         "Retrieval of Guide Items page succeeded", Toast.LENGTH_SHORT).show();
                 for (GuideItem guideItem : guideItems) {
-                    System.out.println(guideItem.getName() + " (" + guideItem.getId() + ")");
+                    System.out.println(guideItem.getName() + " (" + guideItem.getGuideItemId() + ")");
                 }
                 if (guideItems.size() != 0) {
                     guideItemsRequest.setPage(currentPage++);

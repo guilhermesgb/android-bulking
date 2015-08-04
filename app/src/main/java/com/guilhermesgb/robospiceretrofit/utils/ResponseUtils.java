@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.model;
+package com.guilhermesgb.robospiceretrofit.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import retrofit.mime.MimeUtil;
 import retrofit.mime.TypedByteArray;
 import retrofit.mime.TypedInput;
 
-public class ResponseModel {
+public class ResponseUtils {
 
     private static final int BUFFER_SIZE = 0x1000;
 

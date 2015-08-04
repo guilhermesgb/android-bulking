@@ -1,9 +1,16 @@
 package com.guilhermesgb.robospiceretrofit.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import com.guilhermesgb.robospiceretrofit.utils.ResponseUtils;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -11,39 +18,41 @@ import java.util.List;
 
 import retrofit.client.Response;
 
-public class GuideItem extends ResponseModel {
+@Table(name = "GuideItems")
+public class GuideItem extends Model {
 
-    private String name = null;
-    private Integer id = null;
-    private String category = null;
-    private String description = null;
-    private String shortDescription = null;
-    private String email = null;
-    private String phone = null;
-    private String website = null;
-    private String address = null;
-    private String schedule = null;
-    private Double minCost = null;
-    private Double maxCost = null;
-    private String cost = null;
-    private String creditCard = null;
-    private String breakfast = null;
-    private String capacity = null;
-    private String metro = null;
-    private String tram = null;
-    private String bus = null;
-    private String plane = null;
-    private String boat = null;
-    private String car = null;
-    private String gondola = null;
-    private String train = null;
-    private String bike = null;
-    private String walking = null;
+    @Column private String name = null;
+    @Column private Integer guideItemId = null;
+    @Column private String category = null;
+    @Column private String description = null;
+    @Column private String shortDescription = null;
+    @Column private String email = null;
+    @Column private String phone = null;
+    @Column private String website = null;
+    @Column private String address = null;
+    @Column private String schedule = null;
+    @Column private Double minCost = null;
+    @Column private Double maxCost = null;
+    @Column private String cost = null;
+    @Column private String creditCard = null;
+    @Column private String breakfast = null;
+    @Column private String capacity = null;
+    @Column private String metro = null;
+    @Column private String tram = null;
+    @Column private String bus = null;
+    @Column private String plane = null;
+    @Column private String boat = null;
+    @Column private String car = null;
+    @Column private String gondola = null;
+    @Column private String train = null;
+    @Column private String bike = null;
+    @Column private String walking = null;
 
     private final JsonObject rawBody;
 
     public static List<GuideItem> parseGuideItems(Response response) throws IOException {
-        JsonObject responseBody = new JsonParser().parse(getBodyString(response)).getAsJsonObject();
+        JsonObject responseBody = new JsonParser().parse(ResponseUtils
+                .getBodyString(response)).getAsJsonObject();
         List<GuideItem> parsedResponse = new LinkedList<>();
         JsonArray posts = responseBody.getAsJsonArray("posts");
         for (JsonElement element : posts) {
@@ -53,14 +62,20 @@ public class GuideItem extends ResponseModel {
         return parsedResponse;
     }
 
+    public GuideItem() {
+        super();
+        this.rawBody = new JsonObject();
+    }
+
     public GuideItem(Response response) throws IOException {
-        this(new JsonParser().parse(getBodyString(response)).getAsJsonObject());
+        this(new JsonParser().parse(ResponseUtils.getBodyString(response)).getAsJsonObject());
     }
 
     public GuideItem(JsonObject rawBody) {
+        super();
         this.rawBody = rawBody;
         setName();
-        setId();
+        setGuideItemId();
         setCategory();
         setDescription();
         setShortDescription();
@@ -85,6 +100,12 @@ public class GuideItem extends ResponseModel {
         setTrain();
         setBike();
         setWalking();
+        GuideItem self = new Select().from(GuideItem.class)
+                .where("guideItemId = ?", getGuideItemId()).executeSingle();
+        if (self != null) {
+            self.delete();
+        }
+        this.save();
     }
 
     public void setName() {
@@ -101,18 +122,18 @@ public class GuideItem extends ResponseModel {
         return this.name;
     }
 
-    public void setId() {
+    public void setGuideItemId() {
         final JsonElement id = rawBody.get("custom_fields").getAsJsonObject().get("id");
         setFieldValue(id, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.id = id.getAsInt();
+                GuideItem.this.guideItemId = id.getAsInt();
             }
         });
     }
 
-    public Integer getId() {
-        return this.id;
+    public Integer getGuideItemId() {
+        return this.guideItemId;
     }
 
     public void setCategory() {

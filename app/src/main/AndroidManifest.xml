@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name="com.activeandroid.app.Application"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,6 +25,16 @@
         <service
             android:name="com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService"
             android:exported="false" />
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="oviajante.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.guilhermesgb.robospiceretrofit.model.GuideItem" />
     </application>
 
 </manifest>
