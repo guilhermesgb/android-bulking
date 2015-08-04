@@ -4,12 +4,10 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-
 import com.guilhermesgb.robospiceretrofit.utils.ResponseUtils;
 
 import java.io.IOException;
@@ -51,13 +49,15 @@ public class GuideItem extends Model {
     private final JsonObject rawBody;
 
     public static List<GuideItem> parseGuideItems(Response response) throws IOException {
-        JsonObject responseBody = new JsonParser().parse(ResponseUtils
-                .getBodyString(response)).getAsJsonObject();
         List<GuideItem> parsedResponse = new LinkedList<>();
-        JsonArray posts = responseBody.getAsJsonArray("posts");
-        for (JsonElement element : posts) {
-            JsonObject post = element.getAsJsonObject();
-            parsedResponse.add(new GuideItem(post));
+        String bodyString = ResponseUtils.getBodyString(response);
+        if (bodyString != null) {
+            JsonObject responseBody = new JsonParser().parse(bodyString).getAsJsonObject();
+            JsonArray posts = responseBody.getAsJsonArray("posts");
+            for (JsonElement element : posts) {
+                JsonObject post = element.getAsJsonObject();
+                parsedResponse.add(new GuideItem(post));
+            }
         }
         return parsedResponse;
     }
@@ -65,10 +65,6 @@ public class GuideItem extends Model {
     public GuideItem() {
         super();
         this.rawBody = new JsonObject();
-    }
-
-    public GuideItem(Response response) throws IOException {
-        this(new JsonParser().parse(ResponseUtils.getBodyString(response)).getAsJsonObject());
     }
 
     public GuideItem(JsonObject rawBody) {
