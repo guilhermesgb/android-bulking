@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            guideItemsRequest = new GuideItemsRequest(1);
+            guideItemsRequest = new GuideItemsRequest(currentPage);
         }
         catch (Exception exception) {
             exception.printStackTrace();
@@ -60,10 +60,9 @@ public class MainActivity extends Activity {
         spiceManager.start(this);
         super.onStart();
         guideItemsRequest.setPage(currentPage++);
-        adapter.clear();
         progressBar.setVisibility(View.VISIBLE);
         spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentResolvedRequestSignature(),
-                DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
+                DurationInMillis.ALWAYS_EXPIRED, new GuideItemsRequestListener());
     }
 
     @Override
@@ -106,8 +105,8 @@ public class MainActivity extends Activity {
                                     .getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,
                             new GuideItemsRequestListener());
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
                 Toast.makeText(MainActivity.this,
                         "Retrieval of Guide Items page succeeded but failed to parse",
                         Toast.LENGTH_SHORT).show();

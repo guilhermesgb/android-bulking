@@ -15,9 +15,9 @@ public class ResponseUtils {
 
     public static String getBodyString(Response response) throws IOException {
         TypedInput body = response.getBody();
-        if (body!= null) {
+        if (body != null) {
             if (!(body instanceof TypedByteArray)) {
-                response = readBodyToBytesIfNecessary(response);
+                response = readBodyToBytesIfNecessary(response, body);
                 body = response.getBody();
             }
             byte[] bodyBytes = ((TypedByteArray) body).getBytes();
@@ -28,8 +28,7 @@ public class ResponseUtils {
         return null;
     }
 
-    private static Response readBodyToBytesIfNecessary (Response response) throws IOException {
-        TypedInput body = response.getBody();
+    private static Response readBodyToBytesIfNecessary(Response response, TypedInput body) throws IOException {
         if (body == null || body instanceof TypedByteArray) {
             return response;
         }
@@ -37,10 +36,6 @@ public class ResponseUtils {
         byte[] bodyBytes = streamToBytes(body.in());
         body = new TypedByteArray(bodyMime, bodyBytes);
         return replaceResponseBody(response, body);
-    }
-
-    private static Response replaceResponseBody(Response response, TypedInput body) {
-        return new Response(response.getStatus(), response.getReason(), response.getHeaders(), body);
     }
 
     private static byte[] streamToBytes(InputStream stream) throws IOException {
@@ -53,6 +48,10 @@ public class ResponseUtils {
             }
         }
         return baos.toByteArray();
+    }
+
+    private static Response replaceResponseBody(Response response, TypedInput body) {
+        return new Response(response.getStatus(), response.getReason(), response.getHeaders(), body);
     }
 
 }
