@@ -7,14 +7,10 @@ import com.activeandroid.query.Select;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.guilhermesgb.robospiceretrofit.utils.ResponseUtils;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
-import retrofit.client.Response;
 
 @Table(name = "GuideItems")
 public class GuideItem extends Model {
@@ -48,16 +44,12 @@ public class GuideItem extends Model {
 
     private final JsonObject rawBody;
 
-    public static List<GuideItem> parseGuideItems(Response response) throws IOException {
+    public static List<GuideItem> parseGuideItems(JsonObject response) throws IOException {
         List<GuideItem> parsedResponse = new LinkedList<>();
-        String bodyString = ResponseUtils.getBodyString(response);
-        if (bodyString != null) {
-            JsonObject responseBody = new JsonParser().parse(bodyString).getAsJsonObject();
-            JsonArray posts = responseBody.getAsJsonArray("posts");
-            for (JsonElement element : posts) {
-                JsonObject post = element.getAsJsonObject();
-                parsedResponse.add(new GuideItem(post));
-            }
+        JsonArray posts = response.getAsJsonArray("posts");
+        for (JsonElement element : posts) {
+            JsonObject post = element.getAsJsonObject();
+            parsedResponse.add(new GuideItem(post));
         }
         return parsedResponse;
     }

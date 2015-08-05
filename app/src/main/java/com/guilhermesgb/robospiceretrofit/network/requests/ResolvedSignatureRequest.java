@@ -1,11 +1,7 @@
 package com.guilhermesgb.robospiceretrofit.network.requests;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
-import com.guilhermesgb.robospiceretrofit.utils.ResponseUtils;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitInterface;
-
 import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 
 import java.lang.annotation.Annotation;
@@ -13,10 +9,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import retrofit.client.Response;
 import retrofit.http.RestMethod;
 
-abstract public class ResolvedSignatureRequest extends RetrofitSpiceRequest<Response,
+abstract public class ResolvedSignatureRequest extends RetrofitSpiceRequest<JsonObject,
         WordPressCMSRetrofitInterface> {
 
     private final Method requestInterface;
@@ -26,7 +21,7 @@ abstract public class ResolvedSignatureRequest extends RetrofitSpiceRequest<Resp
 
     public ResolvedSignatureRequest(Map<String, Object> requestParameters) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, ClassCastException {
-        super(Response.class, WordPressCMSRetrofitInterface.class);
+        super(JsonObject.class, WordPressCMSRetrofitInterface.class);
         requestInterface = getRequestInterface();
         requestSignatureResolver = prepareRequestSignatureResolver(requestInterface);
         for (Map.Entry<String, Object> parameterMapping : requestParameters.entrySet()) {
@@ -62,19 +57,17 @@ abstract public class ResolvedSignatureRequest extends RetrofitSpiceRequest<Resp
     }
 
     @Override
-    public Response loadDataFromNetwork() throws Exception {
-        Response response = doLoadDataFromNetwork(requestInterface);
+    public JsonObject loadDataFromNetwork() throws Exception {
+        JsonObject response = doLoadDataFromNetwork(requestInterface);
         System.out.println(String.format("%s.... called!", getRequestSignature()));
-        JsonObject responseBody = new JsonParser()
-                .parse(ResponseUtils.getBodyString(response)).getAsJsonObject();
-        String status = responseBody.get("status").getAsString();
+        String status = response.get("status").getAsString();
         if ("error".equals(status)) {
             cancel();
         }
         return response;
     }
 
-    protected abstract Response doLoadDataFromNetwork(Method requestInterface) throws Exception;
+    protected abstract JsonObject doLoadDataFromNetwork(Method requestInterface) throws Exception;
 
     private Method getRequestInterface() throws NoSuchMethodException {
         return getRequestInterfaceMethod(WordPressCMSRetrofitInterface.class);

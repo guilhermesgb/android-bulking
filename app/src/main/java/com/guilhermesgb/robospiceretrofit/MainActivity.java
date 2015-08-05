@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService;
@@ -23,8 +24,6 @@ import com.pedrogomez.renderers.RendererAdapter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
-import retrofit.client.Response;
 
 public class MainActivity extends Activity {
 
@@ -71,7 +70,7 @@ public class MainActivity extends Activity {
         super.onStop();
     }
 
-    public final class GuideItemsRequestListener implements RequestListener<Response> {
+    public final class GuideItemsRequestListener implements RequestListener<JsonObject> {
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
@@ -91,7 +90,7 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        public void onRequestSuccess(Response response) {
+        public void onRequestSuccess(JsonObject response) {
             try {
                 List<GuideItem> guideItems = GuideItem.parseGuideItems(response);
                 for (GuideItem guideItem : guideItems) {

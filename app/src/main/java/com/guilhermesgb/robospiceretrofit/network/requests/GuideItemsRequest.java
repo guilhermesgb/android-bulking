@@ -1,13 +1,11 @@
 package com.guilhermesgb.robospiceretrofit.network.requests;
 
-import com.guilhermesgb.robospiceretrofit.network.requests.ResolvedSignatureRequest;
+import com.google.gson.JsonObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import retrofit.client.Response;
 
 public class GuideItemsRequest extends ResolvedSignatureRequest {
 
@@ -32,10 +30,10 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
         changeRequestSignatureIntegerVariable("page", page);
     }
 
-    protected Response doLoadDataFromNetwork(Method requestInterface) throws Exception {
+    protected JsonObject doLoadDataFromNetwork(Method requestInterface) throws Exception {
         int page = getRequestSignatureIntegerVariableValue("page");
         System.out.println(String.format("Calling web service, retrieving guide items page %d...", page));
-        return (Response) requestInterface.invoke(getService(), page);
+        return (JsonObject) requestInterface.invoke(getService(), page);
     }
 
     protected Method getRequestInterfaceMethod(Class<?> declaredInterface) throws NoSuchMethodException {
