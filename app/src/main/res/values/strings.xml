@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RoboSpice+Retrofit</string>
+
+    <string name="btn_sync_with_server">Sync with server</string>
 </resources>

@@ -30,8 +30,17 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
         changeRequestSignatureIntegerVariable("page", page);
     }
 
+    public int getPage() {
+        return getRequestSignatureIntegerVariableValue("page");
+    }
+
+    public GuideItemsRequest getNext() {
+        setPage(getPage()+1);
+        return this;
+    }
+
     protected JsonObject doLoadDataFromNetwork(Method requestInterface) throws Exception {
-        int page = getRequestSignatureIntegerVariableValue("page");
+        int page = getPage();
         System.out.println(String.format("Calling web service, retrieving guide items page %d...", page));
         return (JsonObject) requestInterface.invoke(getService(), page);
     }
@@ -41,7 +50,7 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
     }
 
     protected String parseRequestSignatureVars(String currentMethodResolvedSignature) {
-        int page = getRequestSignatureIntegerVariableValue("page");
+        int page = getPage();
         return currentMethodResolvedSignature.replace("{page}", Integer.toString(page));
     }
 

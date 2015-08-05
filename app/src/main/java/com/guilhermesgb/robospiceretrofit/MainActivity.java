@@ -3,6 +3,7 @@ package com.guilhermesgb.robospiceretrofit;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -28,16 +29,17 @@ public class MainActivity extends Activity {
 
     private SpiceManager spiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
     private GuideItemsRequest guideItemsRequest;
-    private int currentPage = 1;
+    private final int initialPage = 0;
     private RendererAdapter<GuideItem> adapter;
     private ProgressBar progressBar;
+    private Button syncButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         try {
-            guideItemsRequest = new GuideItemsRequest(currentPage);
+            guideItemsRequest = new GuideItemsRequest(initialPage);
         }
         catch (Exception exception) {
             exception.printStackTrace();
@@ -51,16 +53,21 @@ public class MainActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+        syncButton = (Button) findViewById(R.id.sync_button);
     }
 
     @Override
     protected void onStart() {
         spiceManager.start(this);
         super.onStart();
-        guideItemsRequest.setPage(currentPage++);
-        progressBar.setVisibility(View.VISIBLE);
-        spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentResolvedRequestSignature(),
-                DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
+        syncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
+                spiceManager.execute(guideItemsRequest.getNext(), guideItemsRequest.getCurrentResolvedRequestSignature(),
+                        DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
+            }
+        });
     }
 
     @Override
@@ -82,6 +89,7 @@ public class MainActivity extends Activity {
                 adapter.clear();
                 adapter.addAll(GuideItem.retrieveStoredGuideItems());
                 adapter.notifyDataSetChanged();
+                guideItemsRequest.setPage(initialPage);
             }
             else {
                 Toast.makeText(MainActivity.this,
@@ -96,10 +104,9 @@ public class MainActivity extends Activity {
             try {
                 List<GuideItem> guideItems = GuideItem.parseGuideItems(response);
                 if (guideItems.size() != 0) {
-                    guideItemsRequest.setPage(currentPage++);
-                    spiceManager.execute(guideItemsRequest, guideItemsRequest
-                                    .getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,
-                            new GuideItemsRequestListener());
+                    spiceManager.execute(guideItemsRequest.getNext(),
+                            guideItemsRequest.getCurrentResolvedRequestSignature(),
+                            DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
                 }
             } catch (IOException ioException) {
                 ioException.printStackTrace();
