@@ -43,9 +43,7 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
     protected abstract void setUpParticularitiesInView(View view);
 
     @Override
-    protected void hookListeners(View view) {
-
-    }
+    protected void hookListeners(View view) {}
 
     @Override
     protected View inflate(LayoutInflater inflater, ViewGroup parent) {
