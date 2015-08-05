@@ -7,7 +7,7 @@ import retrofit.http.Path;
 
 public interface WordPressCMSRetrofitInterface {
 
-    @GET("/guide_item/page/{page}/?json=1")
+    @GET("/guide_items/page/{page}/?json=1")
     JsonObject retrieveGuideItems(@Path("page") Integer page);
 
 }

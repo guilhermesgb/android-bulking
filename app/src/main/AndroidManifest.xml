@@ -31,7 +31,7 @@
             android:value="oviajante.db" />
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="1" />
+            android:value="2" />
         <meta-data
             android:name="AA_MODELS"
             android:value="com.guilhermesgb.robospiceretrofit.model.GuideItem" />

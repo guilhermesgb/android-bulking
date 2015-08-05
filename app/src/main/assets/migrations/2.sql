@@ -1,0 +1,1 @@
+ALTER TABLE GuideItems ADD version INTEGER;

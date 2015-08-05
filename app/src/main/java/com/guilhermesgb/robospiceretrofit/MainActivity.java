@@ -22,7 +22,6 @@ import com.octo.android.robospice.request.listener.RequestListener;
 import com.pedrogomez.renderers.RendererAdapter;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -48,7 +47,7 @@ public class MainActivity extends Activity {
         }
         adapter = new RendererAdapter<>(getLayoutInflater(),
                 new GuideItemRendererBuilder(getApplicationContext()),
-                new GuideItemCollection(new LinkedList<GuideItem>()));
+                new GuideItemCollection(GuideItem.retrieveStoredGuideItems()));
         ListView listView = (ListView) findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -61,7 +60,7 @@ public class MainActivity extends Activity {
         guideItemsRequest.setPage(currentPage++);
         progressBar.setVisibility(View.VISIBLE);
         spiceManager.execute(guideItemsRequest, guideItemsRequest.getCurrentResolvedRequestSignature(),
-                DurationInMillis.ALWAYS_EXPIRED, new GuideItemsRequestListener());
+                DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
     }
 
     @Override
@@ -80,25 +79,23 @@ public class MainActivity extends Activity {
                         Toast.LENGTH_SHORT).show();
             }
             else if (spiceException instanceof RequestCancelledException) {
-                progressBar.setVisibility(View.GONE);
+                adapter.clear();
+                adapter.addAll(GuideItem.retrieveStoredGuideItems());
+                adapter.notifyDataSetChanged();
             }
             else {
                 Toast.makeText(MainActivity.this,
                         "Retrieval of Guide Items page failed", Toast.LENGTH_SHORT).show();
                 spiceException.printStackTrace();
             }
+            progressBar.setVisibility(View.GONE);
         }
 
         @Override
         public void onRequestSuccess(JsonObject response) {
             try {
                 List<GuideItem> guideItems = GuideItem.parseGuideItems(response);
-                for (GuideItem guideItem : guideItems) {
-                    System.out.println(guideItem.getName() + " (" + guideItem.getGuideItemId() + ")");
-                }
                 if (guideItems.size() != 0) {
-                    adapter.addAll(new GuideItemCollection(guideItems));
-                    adapter.notifyDataSetChanged();
                     guideItemsRequest.setPage(currentPage++);
                     spiceManager.execute(guideItemsRequest, guideItemsRequest
                                     .getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,

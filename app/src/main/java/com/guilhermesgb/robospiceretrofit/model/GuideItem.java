@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "GuideItems")
 public class GuideItem extends Model {
 
+    @Column private Integer version = null;
     @Column private String name = null;
     @Column private Integer guideItemId = null;
     @Column private String category = null;
@@ -44,16 +45,6 @@ public class GuideItem extends Model {
 
     private final JsonObject rawBody;
 
-    public static List<GuideItem> parseGuideItems(JsonObject response) throws IOException {
-        List<GuideItem> parsedResponse = new LinkedList<>();
-        JsonArray posts = response.getAsJsonArray("posts");
-        for (JsonElement element : posts) {
-            JsonObject post = element.getAsJsonObject();
-            parsedResponse.add(new GuideItem(post));
-        }
-        return parsedResponse;
-    }
-
     public GuideItem() {
         super();
         this.rawBody = new JsonObject();
@@ -62,6 +53,7 @@ public class GuideItem extends Model {
     public GuideItem(JsonObject rawBody) {
         super();
         this.rawBody = rawBody;
+        setVersion();
         setName();
         setGuideItemId();
         setCategory();
@@ -91,9 +83,35 @@ public class GuideItem extends Model {
         GuideItem self = new Select().from(GuideItem.class)
                 .where("guideItemId = ?", getGuideItemId()).executeSingle();
         if (self != null) {
-            self.delete();
+            if (this.getVersion() > self.getVersion()) {
+                self.delete();
+                this.save();
+            }
         }
-        this.save();
+        else {
+            this.save();
+        }
+    }
+
+    public void setVersion() {
+        final JsonElement version = rawBody.get("custom_fields").getAsJsonObject().get("version");
+        setFieldValue(version, new SetFieldValue() {
+            @Override
+            public void doSetFieldValue() {
+                GuideItem.this.version = version.getAsInt();
+            }
+        });
+        if (this.version == null) {
+            this.version = 1;
+        }
+    }
+
+    public Integer getVersion() {
+        Integer version = this.version;
+        if (version == null) {
+            version = 1;
+        }
+        return version;
     }
 
     public void setName() {
@@ -470,6 +488,20 @@ public class GuideItem extends Model {
 
     protected interface SetFieldValue {
         void doSetFieldValue();
+    }
+
+    public static List<GuideItem> retrieveStoredGuideItems() {
+        return new Select().all().from(GuideItem.class).execute();
+    }
+
+    public static List<GuideItem> parseGuideItems(JsonObject response) throws IOException {
+        List<GuideItem> parsedResponse = new LinkedList<>();
+        JsonArray posts = response.getAsJsonArray("posts");
+        for (JsonElement element : posts) {
+            JsonObject post = element.getAsJsonObject();
+            parsedResponse.add(new GuideItem(post));
+        }
+        return parsedResponse;
     }
 
 }
