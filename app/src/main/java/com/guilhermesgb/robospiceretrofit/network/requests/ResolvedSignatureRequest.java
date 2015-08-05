@@ -19,7 +19,7 @@ abstract public class ResolvedSignatureRequest extends RetrofitSpiceRequest<Json
     private String currentResolvedRequestSignature;
     private final JsonObject requestSignatureVariables = new JsonObject();
 
-    public ResolvedSignatureRequest(Map<String, Object> requestParameters) throws NoSuchMethodException,
+    protected ResolvedSignatureRequest(Map<String, Object> requestParameters) throws NoSuchMethodException,
             IllegalAccessException, InvocationTargetException, ClassCastException {
         super(JsonObject.class, WordPressCMSRetrofitInterface.class);
         requestInterface = getRequestInterface();

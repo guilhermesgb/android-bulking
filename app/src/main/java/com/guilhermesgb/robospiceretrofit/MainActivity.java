@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
 
     private SpiceManager spiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
     private GuideItemsRequest guideItemsRequest;
-    private final int initialPage = 0;
     private RendererAdapter<GuideItem> adapter;
     private ProgressBar progressBar;
     private Button syncButton;
@@ -38,11 +37,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            guideItemsRequest = new GuideItemsRequest(initialPage);
-        }
-        catch (Exception exception) {
-            exception.printStackTrace();
+        guideItemsRequest = GuideItemsRequest.buildRequest();
+        if (guideItemsRequest == null) {
             Toast.makeText(MainActivity.this,
                     "Guide Items page retrieval interface not found", Toast.LENGTH_SHORT).show();
             finish();
@@ -63,6 +59,11 @@ public class MainActivity extends Activity {
         syncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (guideItemsRequest == null) {
+                    Toast.makeText(MainActivity.this,
+                            "Guide Items page retrieval interface not found", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 progressBar.setVisibility(View.VISIBLE);
                 spiceManager.execute(guideItemsRequest.getNext(), guideItemsRequest.getCurrentResolvedRequestSignature(),
                         DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener());
@@ -89,7 +90,7 @@ public class MainActivity extends Activity {
                 adapter.clear();
                 adapter.addAll(GuideItem.retrieveStoredGuideItems());
                 adapter.notifyDataSetChanged();
-                guideItemsRequest.setPage(initialPage);
+                guideItemsRequest = GuideItemsRequest.buildRequest();
             }
             else {
                 Toast.makeText(MainActivity.this,

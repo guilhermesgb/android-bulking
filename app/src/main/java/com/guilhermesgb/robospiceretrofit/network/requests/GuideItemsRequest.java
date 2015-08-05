@@ -12,15 +12,15 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
     private static final String REQUEST_INTERFACE = "retrieveGuideItems";
     private static final Map<String, Object> REQUEST_PARAMS = new HashMap<>();
     static {
-        REQUEST_PARAMS.put("page", 1);
+        REQUEST_PARAMS.put("page", 0);
     }
 
-    public GuideItemsRequest() throws NoSuchMethodException, IllegalAccessException,
+    protected GuideItemsRequest() throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, ClassCastException {
         super(REQUEST_PARAMS);
     }
 
-    public GuideItemsRequest(int page) throws NoSuchMethodException, IllegalAccessException,
+    protected GuideItemsRequest(int page) throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, ClassCastException {
         this();
         setPage(page);
@@ -35,7 +35,7 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
     }
 
     public GuideItemsRequest getNext() {
-        setPage(getPage()+1);
+        setPage(getPage() + 1);
         return this;
     }
 
@@ -52,6 +52,21 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
     protected String parseRequestSignatureVars(String currentMethodResolvedSignature) {
         int page = getPage();
         return currentMethodResolvedSignature.replace("{page}", Integer.toString(page));
+    }
+
+    public static GuideItemsRequest buildRequest(Integer... initialPage) {
+        try {
+            if (initialPage.length == 0) {
+                return new GuideItemsRequest();
+            }
+            else {
+                return new GuideItemsRequest(initialPage[0]);
+            }
+        }
+        catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 
 }
