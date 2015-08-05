@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">RoboSpice+Retrofit</string>
 
-    <string name="btn_sync_with_server">Sync with server</string>
+    <string name="txt_error_guide_items_retry">Error while loading guide items. Retry here.</string>
+    <string name="txt_error_guide_items">Error while loading guide items.</string>
 </resources>

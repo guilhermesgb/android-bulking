@@ -12,7 +12,7 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
     private static final String REQUEST_INTERFACE = "retrieveGuideItems";
     private static final Map<String, Object> REQUEST_PARAMS = new HashMap<>();
     static {
-        REQUEST_PARAMS.put("page", 0);
+        REQUEST_PARAMS.put("page", 1);
     }
 
     protected GuideItemsRequest() throws NoSuchMethodException, IllegalAccessException,
