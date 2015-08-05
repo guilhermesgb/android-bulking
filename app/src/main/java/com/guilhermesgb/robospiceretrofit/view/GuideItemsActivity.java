@@ -12,7 +12,7 @@ import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
-import com.guilhermesgb.robospiceretrofit.renderers.GuideItemRendererBuilder;
+import com.guilhermesgb.robospiceretrofit.renderer.GuideItemRendererBuilder;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceActivity;
 import com.pedrogomez.renderers.RendererAdapter;
 
@@ -60,7 +60,6 @@ public class GuideItemsActivity
 
     @Override
     public void onRefresh() {
-        Log.v("GuideItemsActivity", "TRIGGERING TRUE REFRESH!");
         loadData(true);
     }
 

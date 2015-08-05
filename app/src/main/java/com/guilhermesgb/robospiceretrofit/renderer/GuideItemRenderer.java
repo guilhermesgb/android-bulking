@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.renderers;
+package com.guilhermesgb.robospiceretrofit.renderer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
