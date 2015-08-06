@@ -37,9 +37,11 @@ public abstract class CachedRequestsMonitor implements SpiceServiceListener {
                                    RequestProcessingContext requestProcessingContext) {
         String requestCacheKey = (String) request.getRequestCacheKey();
         if (requestCacheKeys.contains(requestCacheKey)) {
-            addSuccess();
-            if (successTargetReached()) {
-                actUponAllRequestsSucceeded();
+            synchronized (this) {
+                addSuccess();
+                if (successTargetReached()) {
+                    actUponAllRequestsSucceeded();
+                }
             }
         }
     }
@@ -67,6 +69,11 @@ public abstract class CachedRequestsMonitor implements SpiceServiceListener {
     }
 
     public abstract void actUponSomeRequestCanceled();
+
+    public void reset() {
+        requestCacheKeys.clear();
+        successes = 0;
+    }
 
     @Override
     public void onRequestProgressUpdated(CachedSpiceRequest<?> request,
