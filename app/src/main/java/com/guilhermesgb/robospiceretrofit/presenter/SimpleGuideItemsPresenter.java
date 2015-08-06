@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
+import com.guilhermesgb.robospiceretrofit.network.CachedRequestsMonitor;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService;
 import com.guilhermesgb.robospiceretrofit.network.requests.GuideItemsRequest;
 import com.guilhermesgb.robospiceretrofit.storage.OfflineSpiceService;
@@ -19,6 +20,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
@@ -67,7 +69,13 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
     private void syncGuideItems(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
         networkSpiceManager.execute(guideItemsRequest,
                 guideItemsRequest.getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,
-                new GuideItemsRequestListener(guideItemsRequest, pullToRefresh));
+                new InitialGuideItemsRequestListener(guideItemsRequest, pullToRefresh));
+    }
+
+    private void continueSyncingGuideItems(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
+        networkSpiceManager.execute(guideItemsRequest,
+                guideItemsRequest.getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,
+                new FollowingGuideItemsRequestListener(pullToRefresh));
     }
 
     @Override
@@ -105,12 +113,12 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
 
     }
 
-    public final class GuideItemsRequestListener implements RequestListener<JsonObject> {
+    public final class InitialGuideItemsRequestListener implements RequestListener<JsonObject> {
 
         private GuideItemsRequest guideItemsRequest;
         private boolean pullToRefresh;
 
-        public GuideItemsRequestListener(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
+        public InitialGuideItemsRequestListener(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
             super();
             this.guideItemsRequest = guideItemsRequest;
             this.pullToRefresh = pullToRefresh;
@@ -125,7 +133,10 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                 }
             }
             else if (spiceException instanceof RequestCancelledException) {
-                restoreCachedGuideItems(pullToRefresh);
+                Log.d(TAG, "Retrieval of Guide Items from Backend canceled!");
+                if (isViewAttached() && getView() != null) {
+                    getView().showContent();
+                }
             }
             else {
                 Log.d(TAG, "Retrieval of Guide Items from Backend failed!");
@@ -139,10 +150,92 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
         @Override
         public void onRequestSuccess(JsonObject response) {
             try {
-                List<GuideItem> guideItems = GuideItem.parseGuideItems(response);
-                if (guideItems.size() != 0) {
-                    syncGuideItems(guideItemsRequest.getNext(), pullToRefresh);
+                GuideItem.parseAndSyncGuideItems(response);
+                final int remainingRequests = (response.get("pages").getAsInt() - 1);
+                if (remainingRequests > 0) {
+                    CachedRequestsMonitor requestsMonitor = new CachedRequestsMonitor(remainingRequests) {
+
+                        @Override
+                        public void actUponAllRequestsSucceeded() {
+                            restoreCachedGuideItems(pullToRefresh);
+                        }
+
+                        @Override
+                        public void actUponSomeRequestFailed() {
+                            Log.d(TAG, "Retrieval of Guide Items from Backend failed!");
+                            if (isViewAttached() && getView() != null) {
+                                getView().showError(null, pullToRefresh);
+                            }
+                        }
+
+                        @Override
+                        public void actUponSomeRequestCanceled() {
+                            Log.d(TAG, "Retrieval of Guide Items from Backend canceled!");
+                            if (isViewAttached() && getView() != null) {
+                                getView().showContent();
+                            }
+                        }
+
+                    };
+                    networkSpiceManager.addSpiceServiceListener(requestsMonitor);
+                    List<GuideItemsRequest> followingRequests = new LinkedList<>();
+                    for (int i=0; i<remainingRequests; i++) {
+                        guideItemsRequest = guideItemsRequest.getNext();
+                        requestsMonitor.addRequestCacheKey(guideItemsRequest
+                                .getCurrentResolvedRequestSignature());
+                        followingRequests.add(guideItemsRequest);
+                    }
+                    for (GuideItemsRequest followingRequest : followingRequests) {
+                        continueSyncingGuideItems(followingRequest, pullToRefresh);
+                    }
                 }
+            } catch (IOException ioException) {
+                Log.d(TAG, "Could not parse Guide Items retrieved from Backend!");
+                ioException.printStackTrace();
+                if (isViewAttached() && getView() != null) {
+                    getView().showError(ioException, pullToRefresh);
+                }
+            }
+        }
+
+    }
+
+    public final class FollowingGuideItemsRequestListener implements RequestListener<JsonObject> {
+
+        private boolean pullToRefresh;
+
+        public FollowingGuideItemsRequestListener(boolean pullToRefresh) {
+            super();
+            this.pullToRefresh = pullToRefresh;
+        }
+
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
+            if (spiceException instanceof NoNetworkException) {
+                Log.d(TAG, "Retrieval of Guide Items from Backend failed: no network!");
+                if (isViewAttached() && getView() != null) {
+                    getView().showError(spiceException, pullToRefresh);
+                }
+            }
+            else if (spiceException instanceof RequestCancelledException) {
+                Log.d(TAG, "Retrieval of Guide Items from Backend canceled!");
+                if (isViewAttached() && getView() != null) {
+                    getView().showContent();
+                }
+            }
+            else {
+                Log.d(TAG, "Retrieval of Guide Items from Backend failed!");
+                spiceException.printStackTrace();
+                if (isViewAttached() && getView() != null) {
+                    getView().showError(spiceException, pullToRefresh);
+                }
+            }
+        }
+
+        @Override
+        public void onRequestSuccess(JsonObject response) {
+            try {
+                GuideItem.parseAndSyncGuideItems(response);
             } catch (IOException ioException) {
                 Log.d(TAG, "Could not parse Guide Items retrieved from Backend!");
                 ioException.printStackTrace();

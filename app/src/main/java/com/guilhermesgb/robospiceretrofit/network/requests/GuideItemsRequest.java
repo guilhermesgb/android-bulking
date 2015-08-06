@@ -35,8 +35,7 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
     }
 
     public GuideItemsRequest getNext() {
-        setPage(getPage() + 1);
-        return this;
+        return GuideItemsRequest.buildRequest(getPage() + 1);
     }
 
     protected JsonObject doLoadDataFromNetwork(Method requestInterface) throws Exception {

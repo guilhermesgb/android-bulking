@@ -494,7 +494,7 @@ public class GuideItem extends Model {
         return new Select().all().from(GuideItem.class).execute();
     }
 
-    public static List<GuideItem> parseGuideItems(JsonObject response) throws IOException {
+    public static List<GuideItem> parseAndSyncGuideItems(JsonObject response) throws IOException {
         List<GuideItem> parsedResponse = new LinkedList<>();
         JsonArray posts = response.getAsJsonArray("posts");
         for (JsonElement element : posts) {
