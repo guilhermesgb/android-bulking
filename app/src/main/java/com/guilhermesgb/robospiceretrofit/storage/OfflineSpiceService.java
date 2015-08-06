@@ -1,7 +1,10 @@
 package com.guilhermesgb.robospiceretrofit.storage;
 
+import android.annotation.TargetApi;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
+import android.os.Build;
 
 import com.octo.android.robospice.SpiceService;
 import com.octo.android.robospice.networkstate.NetworkStateChecker;
@@ -26,6 +29,16 @@ public class OfflineSpiceService extends SpiceService {
             @Override
             public void checkPermissions(Context context) {}
         };
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public Notification createDefaultNotification() {
+        final Notification notification = super.createDefaultNotification();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
+            notification.priority = Notification.PRIORITY_MIN;
+        }
+        return notification;
     }
 
 }

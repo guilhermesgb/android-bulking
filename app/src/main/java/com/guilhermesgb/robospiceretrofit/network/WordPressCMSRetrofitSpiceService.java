@@ -1,5 +1,9 @@
 package com.guilhermesgb.robospiceretrofit.network;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.os.Build;
+
 import com.octo.android.robospice.retrofit.RetrofitGsonSpiceService;
 
 public class WordPressCMSRetrofitSpiceService extends RetrofitGsonSpiceService {
@@ -15,6 +19,16 @@ public class WordPressCMSRetrofitSpiceService extends RetrofitGsonSpiceService {
     @Override
     protected String getServerUrl() {
         return BASE_URL;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public Notification createDefaultNotification() {
+        final Notification notification = super.createDefaultNotification();
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN){
+            notification.priority = Notification.PRIORITY_MIN;
+        }
+        return notification;
     }
 
 }
