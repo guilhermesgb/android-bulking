@@ -4,8 +4,11 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
+import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService;
 import com.guilhermesgb.robospiceretrofit.network.requests.GuideItemsRequest;
+import com.guilhermesgb.robospiceretrofit.storage.OfflineSpiceService;
+import com.guilhermesgb.robospiceretrofit.storage.requests.StoredGuideItemsRequest;
 import com.guilhermesgb.robospiceretrofit.view.GuideItemsView;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.octo.android.robospice.SpiceManager;
@@ -23,19 +26,21 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
 
     private static final String TAG = "GuideItemsPresenter";
 
-    private SpiceManager spiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
-    private GuideItemsRequest guideItemsRequest = GuideItemsRequest.buildRequest();
+    private SpiceManager networkSpiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
+    private SpiceManager storageSpiceManager = new SpiceManager(OfflineSpiceService.class);
 
     @Override
     public void attachView(GuideItemsView view) {
         super.attachView(view);
-        spiceManager.start(view.getContext());
+        networkSpiceManager.start(view.getContext());
+        storageSpiceManager.start(view.getContext());
     }
 
     @Override
     public void loadGuideItems(boolean pullToRefresh) {
+        GuideItemsRequest guideItemsRequest = GuideItemsRequest.buildRequest();
         if (!pullToRefresh) {
-            showCachedContent();
+            restoreCachedGuideItems(false);
         }
         else {
             if (guideItemsRequest == null) {
@@ -45,51 +50,85 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                 }
                 return;
             }
-            if (isViewAttached() && getView() != null) {
-                getView().showLoading(true);
-            }
-            spiceManager.execute(guideItemsRequest,
-                    guideItemsRequest.getCurrentResolvedRequestSignature(),
-                    DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener(true));
+        }
+        if (isViewAttached() && getView() != null) {
+            getView().showLoading(pullToRefresh);
+        }
+        if (guideItemsRequest != null) {
+            syncGuideItems(guideItemsRequest, pullToRefresh);
         }
     }
 
-    private void showCachedContent() {
-        if (isViewAttached() && getView() != null) {
-            getView().setData(GuideItem.retrieveStoredGuideItems());
-            getView().showContent();
-        }
+    private void restoreCachedGuideItems(boolean pullToRefresh) {
+        storageSpiceManager.execute(new StoredGuideItemsRequest(),
+                new StoredGuideItemsRequestListener(pullToRefresh));
+    }
+
+    private void syncGuideItems(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
+        networkSpiceManager.execute(guideItemsRequest,
+                guideItemsRequest.getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,
+                new GuideItemsRequestListener(guideItemsRequest, pullToRefresh));
     }
 
     @Override
     public void detachView(boolean retainInstance) {
         super.detachView(retainInstance);
-        spiceManager.shouldStop();
+        networkSpiceManager.shouldStop();
+        storageSpiceManager.shouldStop();
     }
 
-    public final class GuideItemsRequestListener implements RequestListener<JsonObject> {
+    public final class StoredGuideItemsRequestListener implements RequestListener<GuideItemCollection> {
 
         private boolean pullToRefresh;
 
-        public GuideItemsRequestListener(boolean pullToRefresh) {
+        public StoredGuideItemsRequestListener(boolean pullToRefresh) {
             super();
             this.pullToRefresh = pullToRefresh;
         }
 
         @Override
         public void onRequestFailure(SpiceException spiceException) {
+            Log.d(TAG, "Retrieval of Guide Items from Storage failed!");
+            spiceException.printStackTrace();
+            if (isViewAttached() && getView() != null) {
+                getView().showError(spiceException, pullToRefresh);
+            }
+        }
+
+        @Override
+        public void onRequestSuccess(GuideItemCollection guideItems) {
+            if (isViewAttached() && getView() != null) {
+                getView().setData(guideItems);
+                getView().showContent();
+            }
+        }
+
+    }
+
+    public final class GuideItemsRequestListener implements RequestListener<JsonObject> {
+
+        private GuideItemsRequest guideItemsRequest;
+        private boolean pullToRefresh;
+
+        public GuideItemsRequestListener(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
+            super();
+            this.guideItemsRequest = guideItemsRequest;
+            this.pullToRefresh = pullToRefresh;
+        }
+
+        @Override
+        public void onRequestFailure(SpiceException spiceException) {
             if (spiceException instanceof NoNetworkException) {
-                Log.d(TAG, "Retrieval of Guide Items page failed: no network!");
+                Log.d(TAG, "Retrieval of Guide Items from Backend failed: no network!");
                 if (isViewAttached() && getView() != null) {
                     getView().showError(spiceException, pullToRefresh);
                 }
             }
             else if (spiceException instanceof RequestCancelledException) {
-                guideItemsRequest = GuideItemsRequest.buildRequest();
-                showCachedContent();
+                restoreCachedGuideItems(pullToRefresh);
             }
             else {
-                Log.d(TAG, "Retrieval of Guide Items page failed!");
+                Log.d(TAG, "Retrieval of Guide Items from Backend failed!");
                 spiceException.printStackTrace();
                 if (isViewAttached() && getView() != null) {
                     getView().showError(spiceException, pullToRefresh);
@@ -102,12 +141,10 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
             try {
                 List<GuideItem> guideItems = GuideItem.parseGuideItems(response);
                 if (guideItems.size() != 0) {
-                    spiceManager.execute(guideItemsRequest.getNext(),
-                            guideItemsRequest.getCurrentResolvedRequestSignature(),
-                            DurationInMillis.ONE_MINUTE, new GuideItemsRequestListener(pullToRefresh));
+                    syncGuideItems(guideItemsRequest.getNext(), pullToRefresh);
                 }
             } catch (IOException ioException) {
-                Log.d(TAG, "Retrieval of Guide Items page succeeded but failed to parse!");
+                Log.d(TAG, "Could not parse Guide Items retrieved from Backend!");
                 ioException.printStackTrace();
                 if (isViewAttached() && getView() != null) {
                     getView().showError(ioException, pullToRefresh);

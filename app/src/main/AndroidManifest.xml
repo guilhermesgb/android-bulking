@@ -12,6 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".view.GuideItemsActivity"
             android:label="@string/app_name" >
@@ -26,6 +27,10 @@
             android:name="com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService"
             android:exported="false" />
 
+        <service
+            android:name="com.guilhermesgb.robospiceretrofit.storage.OfflineSpiceService"
+            android:exported="false" />
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="oviajante.db" />
@@ -35,6 +40,7 @@
         <meta-data
             android:name="AA_MODELS"
             android:value="com.guilhermesgb.robospiceretrofit.model.GuideItem" />
+
     </application>
 
 </manifest>
