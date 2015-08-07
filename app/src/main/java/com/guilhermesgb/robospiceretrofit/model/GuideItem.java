@@ -3,15 +3,9 @@ package com.guilhermesgb.robospiceretrofit.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
-
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 @Table(name = "GuideItems")
 public class GuideItem extends Model {

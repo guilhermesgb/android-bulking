@@ -65,7 +65,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
 
     private void syncGuideItems(GuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
         networkSpiceManager.execute(guideItemsRequest,
-                guideItemsRequest.getCurrentResolvedRequestSignature(), DurationInMillis.ONE_MINUTE,
+                guideItemsRequest.getCurrentResolvedRequestSignature(), DurationInMillis.ONE_DAY,
                 new InitialGuideItemsRequestListener(guideItemsRequest, pullToRefresh));
     }
 
@@ -73,7 +73,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
             final String syncUuid, final boolean pullToRefresh) {
         networkSpiceManager.execute(guideItemsRequest,
                 guideItemsRequest.getCurrentResolvedRequestSignature(),
-                DurationInMillis.ONE_MINUTE, new SubsequentRequestListener<JsonObject>(syncUuid) {
+                DurationInMillis.ONE_DAY, new SubsequentRequestListener<JsonObject>(syncUuid) {
 
                     @Override
                     public void actUponThisRequestFailedDueToNoNetwork(Throwable exception) {
