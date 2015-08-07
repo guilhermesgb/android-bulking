@@ -9,7 +9,7 @@ import com.octo.android.robospice.retrofit.RetrofitGsonSpiceService;
 public class WordPressCMSRetrofitSpiceService extends RetrofitGsonSpiceService {
 
     private static final String BASE_URL = "http://wp.marcosnobrega.com.s101486.gridserver.com/";
-    private static final Integer THREAD_COUNT = 3;
+    private static final Integer THREAD_COUNT = 5;
 
     @Override
     public void onCreate() {
