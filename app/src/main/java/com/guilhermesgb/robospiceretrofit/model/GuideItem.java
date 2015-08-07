@@ -504,4 +504,8 @@ public class GuideItem extends Model {
         return parsedResponse;
     }
 
+    public static int getStoredGuideItemsCount() {
+        return new Select().all().from(GuideItem.class).count();
+    }
+
 }
