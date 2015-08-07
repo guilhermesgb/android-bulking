@@ -1,7 +1,7 @@
-package com.guilhermesgb.robospiceretrofit.network.requests;
+package com.guilhermesgb.robospiceretrofit.presenter.network.requests;
 
 import com.google.gson.JsonObject;
-import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitInterface;
+import com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitInterface;
 import com.octo.android.robospice.request.retrofit.RetrofitSpiceRequest;
 
 import java.lang.annotation.Annotation;

@@ -7,6 +7,7 @@ import com.activeandroid.query.Select;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -80,8 +81,7 @@ public class GuideItem extends Model {
         setTrain();
         setBike();
         setWalking();
-        GuideItem self = new Select().from(GuideItem.class)
-                .where("guideItemId = ?", getGuideItemId()).executeSingle();
+        GuideItem self = GuideItemsProvider.retrieveStoredGuideItem(this.getGuideItemId());
         if (self != null) {
             if (this.getVersion() > self.getVersion()) {
                 self.delete();
@@ -488,24 +488,6 @@ public class GuideItem extends Model {
 
     protected interface SetFieldValue {
         void doSetFieldValue();
-    }
-
-    public static List<GuideItem> retrieveStoredGuideItems() {
-        return new Select().all().from(GuideItem.class).execute();
-    }
-
-    public static List<GuideItem> parseAndSyncGuideItems(JsonObject response) throws IOException {
-        List<GuideItem> parsedResponse = new LinkedList<>();
-        JsonArray posts = response.getAsJsonArray("posts");
-        for (JsonElement element : posts) {
-            JsonObject post = element.getAsJsonObject();
-            parsedResponse.add(new GuideItem(post));
-        }
-        return parsedResponse;
-    }
-
-    public static int getStoredGuideItemsCount() {
-        return new Select().all().from(GuideItem.class).count();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.network.requests;
+package com.guilhermesgb.robospiceretrofit.presenter.network.requests;
 
 import com.google.gson.JsonObject;
 

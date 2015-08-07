@@ -5,11 +5,12 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
-import com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService;
-import com.guilhermesgb.robospiceretrofit.network.listeners.SubsequentRequestListener;
-import com.guilhermesgb.robospiceretrofit.network.requests.GuideItemsRequest;
-import com.guilhermesgb.robospiceretrofit.storage.OfflineSpiceService;
-import com.guilhermesgb.robospiceretrofit.storage.requests.StoredGuideItemsRequest;
+import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
+import com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService;
+import com.guilhermesgb.robospiceretrofit.presenter.network.listeners.SubsequentRequestListener;
+import com.guilhermesgb.robospiceretrofit.presenter.network.requests.GuideItemsRequest;
+import com.guilhermesgb.robospiceretrofit.model.storage.OfflineSpiceService;
+import com.guilhermesgb.robospiceretrofit.model.storage.requests.StoredGuideItemsRequest;
 import com.guilhermesgb.robospiceretrofit.view.GuideItemsView;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.octo.android.robospice.SpiceManager;
@@ -97,7 +98,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                     @Override
                     public void actUponThisRequestSucceeded(JsonObject response) {
                         try {
-                            GuideItem.parseAndSyncGuideItems(response);
+                            GuideItemsProvider.parseAndSyncGuideItems(response);
                             restoreCachedGuideItems(pullToRefresh);
                         } catch (IOException ioException) {
                             Log.e(TAG, "Could not parse Guide Items retrieved from Backend!");
@@ -177,7 +178,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
         @Override
         public void onRequestSuccess(JsonObject response) {
             try {
-                GuideItem.parseAndSyncGuideItems(response);
+                GuideItemsProvider.parseAndSyncGuideItems(response);
                 final int remainingRequests = (response.get("pages").getAsInt() - 1);
                 if (remainingRequests > 0) {
                     final String syncUuid = UUID.randomUUID().toString();
@@ -197,7 +198,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
     }
 
     public void showErrorIfNoContentAvailable(Throwable exception, boolean pullToRefresh) {
-        if (GuideItem.getStoredGuideItemsCount() == 0) {
+        if (GuideItemsProvider.getStoredGuideItemsCount() == 0) {
             if (isViewAttached() && getView() != null) {
                 getView().showError(exception, pullToRefresh);
             }

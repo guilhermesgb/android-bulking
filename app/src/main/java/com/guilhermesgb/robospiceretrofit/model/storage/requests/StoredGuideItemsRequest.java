@@ -1,7 +1,7 @@
-package com.guilhermesgb.robospiceretrofit.storage.requests;
+package com.guilhermesgb.robospiceretrofit.model.storage.requests;
 
-import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
+import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
 import com.octo.android.robospice.request.SpiceRequest;
 
 public class StoredGuideItemsRequest extends SpiceRequest<GuideItemCollection> {
@@ -12,7 +12,7 @@ public class StoredGuideItemsRequest extends SpiceRequest<GuideItemCollection> {
 
     @Override
     public GuideItemCollection loadDataFromNetwork() throws Exception {
-        return new GuideItemCollection(GuideItem.retrieveStoredGuideItems());
+        return new GuideItemCollection(GuideItemsProvider.retrieveStoredGuideItems());
     }
 
 }

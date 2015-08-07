@@ -24,11 +24,11 @@
         </activity>
 
         <service
-            android:name="com.guilhermesgb.robospiceretrofit.network.WordPressCMSRetrofitSpiceService"
+            android:name=".presenter.network.WordPressCMSRetrofitSpiceService"
             android:exported="false" />
 
         <service
-            android:name="com.guilhermesgb.robospiceretrofit.storage.OfflineSpiceService"
+            android:name=".model.storage.OfflineSpiceService"
             android:exported="false" />
 
         <meta-data

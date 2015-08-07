@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.network;
+package com.guilhermesgb.robospiceretrofit.presenter.network;
 
 import android.annotation.TargetApi;
 import android.app.Notification;

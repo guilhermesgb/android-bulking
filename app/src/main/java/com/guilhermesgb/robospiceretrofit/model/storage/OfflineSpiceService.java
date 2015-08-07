@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.storage;
+package com.guilhermesgb.robospiceretrofit.model.storage;
 
 import android.annotation.TargetApi;
 import android.app.Application;

@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.network.listeners;
+package com.guilhermesgb.robospiceretrofit.presenter.network.listeners;
 
 import com.octo.android.robospice.exception.NoNetworkException;
 import com.octo.android.robospice.exception.RequestCancelledException;

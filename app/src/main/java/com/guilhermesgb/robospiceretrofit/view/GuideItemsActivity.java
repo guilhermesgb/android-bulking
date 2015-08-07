@@ -11,10 +11,11 @@ import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
-import com.guilhermesgb.robospiceretrofit.renderer.GuideItemRendererBuilder;
+import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemRendererBuilder;
 import com.hannesdorfmann.mosby.mvp.lce.MvpLceActivity;
 import com.pedrogomez.renderers.RendererAdapter;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -34,7 +35,7 @@ public class GuideItemsActivity
         contentView.setOnRefreshListener(this);
         adapter = new RendererAdapter<>(getLayoutInflater(),
                 new GuideItemRendererBuilder(getApplicationContext()),
-                new GuideItemCollection(GuideItem.retrieveStoredGuideItems()));
+                new GuideItemCollection(new LinkedList<GuideItem>()));
         listView.setAdapter(adapter);
         loadData(false);
     }

@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.renderer;
+package com.guilhermesgb.robospiceretrofit.view.renderers;
 
 import android.content.Context;
 import android.view.View;

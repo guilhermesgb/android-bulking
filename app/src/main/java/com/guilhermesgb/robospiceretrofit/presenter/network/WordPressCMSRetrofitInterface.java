@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.network;
+package com.guilhermesgb.robospiceretrofit.presenter.network;
 
 import com.google.gson.JsonObject;
 
