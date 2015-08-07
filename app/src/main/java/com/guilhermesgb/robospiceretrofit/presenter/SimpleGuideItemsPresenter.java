@@ -73,7 +73,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
             final String syncUuid, final boolean pullToRefresh) {
         networkSpiceManager.execute(guideItemsRequest,
                 guideItemsRequest.getCurrentResolvedRequestSignature(),
-                DurationInMillis.ONE_DAY, new SubsequentRequestListener<JsonObject>(syncUuid) {
+                DurationInMillis.ALWAYS_EXPIRED, new SubsequentRequestListener<JsonObject>(syncUuid) {
 
                     @Override
                     public void actUponThisRequestFailedDueToNoNetwork(Throwable exception) {
