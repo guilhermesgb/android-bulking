@@ -7,7 +7,6 @@ import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 public class GuideItemsProvider {
@@ -25,14 +24,11 @@ public class GuideItemsProvider {
         return new Select().all().from(GuideItem.class).count();
     }
 
-    public static List<GuideItem> parseAndSyncGuideItems(JsonObject response) throws IOException {
-        List<GuideItem> parsedResponse = new LinkedList<>();
+    public static void parseAndSyncGuideItemsWithStorage(JsonObject response) throws IOException {
         JsonArray posts = response.getAsJsonArray("posts");
         for (JsonElement element : posts) {
-            JsonObject post = element.getAsJsonObject();
-            parsedResponse.add(new GuideItem(post));
+            new GuideItem(element.getAsJsonObject());
         }
-        return parsedResponse;
     }
 
 }

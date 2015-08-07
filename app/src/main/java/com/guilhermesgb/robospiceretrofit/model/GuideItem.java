@@ -84,8 +84,34 @@ public class GuideItem extends Model {
         GuideItem self = GuideItemsProvider.retrieveStoredGuideItem(this.getGuideItemId());
         if (self != null) {
             if (this.getVersion() > self.getVersion()) {
-                self.delete();
-                this.save();
+                self.setVersion(this.getVersion());
+                self.setName(this.getName());
+                self.setGuideItemId(this.getGuideItemId());
+                self.setCategory(this.getCategory());
+                self.setDescription(this.getDescription());
+                self.setShortDescription(this.getShortDescription());
+                self.setEmail(this.getEmail());
+                self.setPhone(this.getPhone());
+                self.setWebsite(this.getWebsite());
+                self.setAddress(this.getAddress());
+                self.setSchedule(this.getSchedule());
+                self.setMinCost(this.getMinCost());
+                self.setMaxCost(this.getMaxCost());
+                self.setCost(this.getCost());
+                self.setCreditCard(this.getCreditCard());
+                self.setBreakfast(this.getBreakfast());
+                self.setCapacity(this.getCapacity());
+                self.setMetro(this.getMetro());
+                self.setTram(this.getTram());
+                self.setBus(this.getBus());
+                self.setPlane(this.getPlane());
+                self.setBoat(this.getBoat());
+                self.setCar(this.getCar());
+                self.setGondola(this.getGondola());
+                self.setTrain(this.getTrain());
+                self.setBike(this.getBike());
+                self.setWalking(this.getWalking());
+                self.save();
             }
         }
         else {
@@ -98,12 +124,16 @@ public class GuideItem extends Model {
         setFieldValue(version, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.version = version.getAsInt();
+                GuideItem.this.setVersion(version.getAsInt());
             }
         });
         if (this.version == null) {
             this.version = 1;
         }
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Integer getVersion() {
@@ -119,9 +149,13 @@ public class GuideItem extends Model {
         setFieldValue(name, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.name = name.getAsString();
+                GuideItem.this.setName(name.getAsString());
             }
         });
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -133,9 +167,13 @@ public class GuideItem extends Model {
         setFieldValue(id, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.guideItemId = id.getAsInt();
+                GuideItem.this.setGuideItemId(id.getAsInt());
             }
         });
+    }
+
+    public void setGuideItemId(int guideItemId) {
+        this.guideItemId = guideItemId;
     }
 
     public Integer getGuideItemId() {
@@ -147,9 +185,13 @@ public class GuideItem extends Model {
         setFieldValue(category, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.category = category.getAsString();
+                GuideItem.this.setCategory(category.getAsString());
             }
         });
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getCategory() {
@@ -162,9 +204,13 @@ public class GuideItem extends Model {
         setFieldValue(description, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.description = description.getAsString();
+                GuideItem.this.setDescription(description.getAsString());
             }
         });
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDescription() {
@@ -177,9 +223,13 @@ public class GuideItem extends Model {
         setFieldValue(shortDescription, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.shortDescription = shortDescription.getAsString();
+                GuideItem.this.setShortDescription(shortDescription.getAsString());
             }
         });
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
     }
 
     public String getShortDescription() {
@@ -191,9 +241,13 @@ public class GuideItem extends Model {
         setFieldValue(email, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.email = email.getAsString();
+                GuideItem.this.setEmail(email.getAsString());
             }
         });
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getEmail() {
@@ -205,9 +259,13 @@ public class GuideItem extends Model {
         setFieldValue(phone, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.phone = phone.getAsString();
+                GuideItem.this.setPhone(phone.getAsString());
             }
         });
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPhone() {
@@ -219,9 +277,13 @@ public class GuideItem extends Model {
         setFieldValue(website, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.website = website.getAsString();
+                GuideItem.this.setWebsite(website.getAsString());
             }
         });
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public String getWebsite() {
@@ -233,9 +295,13 @@ public class GuideItem extends Model {
         setFieldValue(address, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.address = address.getAsString();
+                GuideItem.this.setAddress(address.getAsString());
             }
         });
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getAddress() {
@@ -247,9 +313,13 @@ public class GuideItem extends Model {
         setFieldValue(schedule, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.schedule = schedule.getAsString();
+                GuideItem.this.setSchedule(schedule.getAsString());
             }
         });
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 
     public String getSchedule() {
@@ -261,9 +331,13 @@ public class GuideItem extends Model {
         setFieldValue(minCost, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.minCost = minCost.getAsDouble();
+                GuideItem.this.setMinCost(minCost.getAsDouble());
             }
         });
+    }
+
+    public void setMinCost(Double minCost) {
+        this.minCost = minCost;
     }
 
     public Double getMinCost() {
@@ -275,9 +349,13 @@ public class GuideItem extends Model {
         setFieldValue(maxCost, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.maxCost = maxCost.getAsDouble();
+                GuideItem.this.setMaxCost(maxCost.getAsDouble());
             }
         });
+    }
+
+    public void setMaxCost(Double maxCost) {
+        this.maxCost = maxCost;
     }
 
     public Double getMaxCost() {
@@ -289,9 +367,13 @@ public class GuideItem extends Model {
         setFieldValue(cost, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.cost = cost.getAsString();
+                GuideItem.this.setCost(cost.getAsString());
             }
         });
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
     }
 
     public String getCost() {
@@ -303,9 +385,13 @@ public class GuideItem extends Model {
         setFieldValue(creditCard, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.creditCard = creditCard.getAsString();
+                GuideItem.this.setCreditCard(creditCard.getAsString());
             }
         });
+    }
+
+    public void setCreditCard(String creditCard) {
+        this.creditCard = creditCard;
     }
 
     public String getCreditCard() {
@@ -317,9 +403,13 @@ public class GuideItem extends Model {
         setFieldValue(breakfast, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.breakfast = breakfast.getAsString();
+                GuideItem.this.setBreakfast(breakfast.getAsString());
             }
         });
+    }
+
+    public void setBreakfast(String breakfast) {
+        this.breakfast = breakfast;
     }
 
     public String getBreakfast() {
@@ -331,9 +421,13 @@ public class GuideItem extends Model {
         setFieldValue(capacity, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.capacity = capacity.getAsString();
+                GuideItem.this.setCapacity(capacity.getAsString());
             }
         });
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
     }
 
     public String getCapacity() {
@@ -345,9 +439,13 @@ public class GuideItem extends Model {
         setFieldValue(metro, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.metro = metro.getAsString();
+                GuideItem.this.setMetro(metro.getAsString());
             }
         });
+    }
+
+    public void setMetro(String metro) {
+        this.metro = metro;
     }
 
     public String getMetro() {
@@ -359,9 +457,13 @@ public class GuideItem extends Model {
         setFieldValue(tram, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.tram = tram.getAsString();
+                GuideItem.this.setTram(tram.getAsString());
             }
         });
+    }
+
+    public void setTram(String tram) {
+        this.tram = tram;
     }
 
     public String getTram() {
@@ -373,9 +475,13 @@ public class GuideItem extends Model {
         setFieldValue(bus, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.bus = bus.getAsString();
+                GuideItem.this.setBus(bus.getAsString());
             }
         });
+    }
+
+    public void setBus(String bus) {
+        this.bus = bus;
     }
 
     public String getBus() {
@@ -387,9 +493,13 @@ public class GuideItem extends Model {
         setFieldValue(plane, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.plane = plane.getAsString();
+                GuideItem.this.setPlane(plane.getAsString());
             }
         });
+    }
+
+    public void setPlane(String plane) {
+        this.plane = plane;
     }
 
     public String getPlane() {
@@ -401,9 +511,13 @@ public class GuideItem extends Model {
         setFieldValue(boat, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.boat = boat.getAsString();
+                GuideItem.this.setBoat(boat.getAsString());
             }
         });
+    }
+
+    public void setBoat(String boat) {
+        this.boat = boat;
     }
 
     public String getBoat() {
@@ -415,9 +529,13 @@ public class GuideItem extends Model {
         setFieldValue(car, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.car = car.getAsString();
+                GuideItem.this.setCar(car.getAsString());
             }
         });
+    }
+
+    public void setCar(String car) {
+        this.car = car;
     }
 
     public String getCar() {
@@ -429,9 +547,13 @@ public class GuideItem extends Model {
         setFieldValue(gondola, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.gondola = gondola.getAsString();
+                GuideItem.this.setGondola(gondola.getAsString());
             }
         });
+    }
+
+    public void setGondola(String gondola) {
+        this.gondola = gondola;
     }
 
     public String getGondola() {
@@ -443,9 +565,13 @@ public class GuideItem extends Model {
         setFieldValue(train, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.train = train.getAsString();
+                GuideItem.this.setTrain(train.getAsString());
             }
         });
+    }
+
+    public void setTrain(String train) {
+        this.train = train;
     }
 
     public String getTrain() {
@@ -457,9 +583,13 @@ public class GuideItem extends Model {
         setFieldValue(bike, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.bike = bike.getAsString();
+                GuideItem.this.setBike(bike.getAsString());
             }
         });
+    }
+
+    public void setBike(String bike) {
+        this.bike = bike;
     }
 
     public String getBike() {
@@ -471,9 +601,13 @@ public class GuideItem extends Model {
         setFieldValue(walking, new SetFieldValue() {
             @Override
             public void doSetFieldValue() {
-                GuideItem.this.walking = walking.getAsString();
+                GuideItem.this.setWalking(walking.getAsString());
             }
         });
+    }
+
+    public void setWalking(String walking) {
+        this.walking = walking;
     }
 
     public String getWalking() {

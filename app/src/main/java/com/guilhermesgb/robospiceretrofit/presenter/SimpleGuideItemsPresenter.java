@@ -3,7 +3,6 @@ package com.guilhermesgb.robospiceretrofit.presenter;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
-import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
 import com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService;
@@ -98,7 +97,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                     @Override
                     public void actUponThisRequestSucceeded(JsonObject response) {
                         try {
-                            GuideItemsProvider.parseAndSyncGuideItems(response);
+                            GuideItemsProvider.parseAndSyncGuideItemsWithStorage(response);
                             restoreCachedGuideItems(pullToRefresh);
                         } catch (IOException ioException) {
                             Log.e(TAG, "Could not parse Guide Items retrieved from Backend!");
@@ -178,7 +177,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
         @Override
         public void onRequestSuccess(JsonObject response) {
             try {
-                GuideItemsProvider.parseAndSyncGuideItems(response);
+                GuideItemsProvider.parseAndSyncGuideItemsWithStorage(response);
                 final int remainingRequests = (response.get("pages").getAsInt() - 1);
                 if (remainingRequests > 0) {
                     final String syncUuid = UUID.randomUUID().toString();
