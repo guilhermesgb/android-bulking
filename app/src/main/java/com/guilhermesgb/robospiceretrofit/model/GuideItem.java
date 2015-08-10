@@ -1,5 +1,8 @@
 package com.guilhermesgb.robospiceretrofit.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -8,7 +11,7 @@ import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
 
 @Table(name = "GuideItems")
-public class GuideItem extends Model {
+public class GuideItem extends Model implements Parcelable {
 
     @Column private Integer version = null;
     @Column private String name = null;
@@ -108,6 +111,78 @@ public class GuideItem extends Model {
             this.save();
         }
     }
+
+    protected GuideItem(Parcel in) {
+        name = in.readString();
+        category = in.readString();
+        description = in.readString();
+        shortDescription = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        website = in.readString();
+        address = in.readString();
+        schedule = in.readString();
+        cost = in.readString();
+        creditCard = in.readString();
+        breakfast = in.readString();
+        capacity = in.readString();
+        metro = in.readString();
+        tram = in.readString();
+        bus = in.readString();
+        plane = in.readString();
+        boat = in.readString();
+        car = in.readString();
+        gondola = in.readString();
+        train = in.readString();
+        bike = in.readString();
+        walking = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(category);
+        dest.writeString(description);
+        dest.writeString(shortDescription);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeString(website);
+        dest.writeString(address);
+        dest.writeString(schedule);
+        dest.writeString(cost);
+        dest.writeString(creditCard);
+        dest.writeString(breakfast);
+        dest.writeString(capacity);
+        dest.writeString(metro);
+        dest.writeString(tram);
+        dest.writeString(bus);
+        dest.writeString(plane);
+        dest.writeString(boat);
+        dest.writeString(car);
+        dest.writeString(gondola);
+        dest.writeString(train);
+        dest.writeString(bike);
+        dest.writeString(walking);
+    }
+
+    public static final Creator<GuideItem> CREATOR = new Creator<GuideItem>() {
+
+        @Override
+        public GuideItem createFromParcel(Parcel in) {
+            return new GuideItem(in);
+        }
+
+        @Override
+        public GuideItem[] newArray(int size) {
+            return new GuideItem[size];
+        }
+
+    };
 
     public void setVersion(JsonObject rawBody) {
         final JsonElement version = rawBody.get("custom_fields").getAsJsonObject().get("version");

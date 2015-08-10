@@ -11,7 +11,9 @@ import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemRendererBuilder;
-import com.hannesdorfmann.mosby.mvp.lce.MvpLceActivity;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateActivity;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.ParcelableLceViewState;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.pedrogomez.renderers.RendererAdapter;
 
 import java.util.LinkedList;
@@ -20,12 +22,13 @@ import java.util.List;
 import butterknife.Bind;
 
 public class GuideItemsActivity
-        extends MvpLceActivity<SwipeRefreshLayout, List<GuideItem>, GuideItemsView, GuideItemsPresenter>
+        extends MvpLceViewStateActivity<SwipeRefreshLayout, List<GuideItem>, GuideItemsView, GuideItemsPresenter>
         implements GuideItemsView, SwipeRefreshLayout.OnRefreshListener {
 
     private RendererAdapter<GuideItem> adapter;
     @Bind(R.id.contentView) SwipeRefreshLayout contentView;
     @Bind(R.id.list_view) ListView listView;
+    private List<GuideItem> lastSeenData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,6 @@ public class GuideItemsActivity
                 new GuideItemRendererBuilder(getApplicationContext()),
                 new GuideItemCollection(new LinkedList<GuideItem>()));
         listView.setAdapter(adapter);
-        loadData(false);
     }
 
     @NonNull
@@ -50,11 +52,23 @@ public class GuideItemsActivity
         return getApplicationContext();
     }
 
+    @NonNull
+    @Override
+    public ParcelableLceViewState<List<GuideItem>, GuideItemsView> createViewState() {
+        return new CastedArrayListLceViewState<>();
+    }
+
+    @Override
+    public List<GuideItem> getData() {
+        return lastSeenData;
+    }
+
     @Override
     public void setData(List<GuideItem> guideItems) {
         adapter.clear();
         adapter.addAll(guideItems);
         adapter.notifyDataSetChanged();
+        lastSeenData = guideItems;
     }
 
     @Override
