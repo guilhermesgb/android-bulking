@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import com.guilhermesgb.robospiceretrofit.R;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
-import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemRendererBuilder;

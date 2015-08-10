@@ -3,7 +3,7 @@ package com.guilhermesgb.robospiceretrofit.presenter;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
-import com.guilhermesgb.robospiceretrofit.model.GuideItemCollection;
+import com.guilhermesgb.robospiceretrofit.view.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.model.storage.OfflineSpiceService;
 import com.guilhermesgb.robospiceretrofit.model.storage.requests.StoredGuideItemsCountRequest;
 import com.guilhermesgb.robospiceretrofit.model.storage.requests.StoredGuideItemsRequest;
