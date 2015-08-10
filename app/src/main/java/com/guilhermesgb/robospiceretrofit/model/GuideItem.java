@@ -38,43 +38,39 @@ public class GuideItem extends Model {
     @Column private String bike = null;
     @Column private String walking = null;
 
-    private final JsonObject rawBody;
-
     public GuideItem() {
         super();
-        this.rawBody = new JsonObject();
     }
 
     public GuideItem(JsonObject rawBody) {
         super();
-        this.rawBody = rawBody;
-        setVersion();
-        setName();
-        setGuideItemId();
-        setCategory();
-        setDescription();
-        setShortDescription();
-        setEmail();
-        setPhone();
-        setWebsite();
-        setAddress();
-        setSchedule();
-        setMinCost();
-        setMaxCost();
-        setCost();
-        setCreditCard();
-        setBreakfast();
-        setCapacity();
-        setMetro();
-        setTram();
-        setBus();
-        setPlane();
-        setBoat();
-        setCar();
-        setGondola();
-        setTrain();
-        setBike();
-        setWalking();
+        setVersion(rawBody);
+        setName(rawBody);
+        setGuideItemId(rawBody);
+        setCategory(rawBody);
+        setDescription(rawBody);
+        setShortDescription(rawBody);
+        setEmail(rawBody);
+        setPhone(rawBody);
+        setWebsite(rawBody);
+        setAddress(rawBody);
+        setSchedule(rawBody);
+        setMinCost(rawBody);
+        setMaxCost(rawBody);
+        setCost(rawBody);
+        setCreditCard(rawBody);
+        setBreakfast(rawBody);
+        setCapacity(rawBody);
+        setMetro(rawBody);
+        setTram(rawBody);
+        setBus(rawBody);
+        setPlane(rawBody);
+        setBoat(rawBody);
+        setCar(rawBody);
+        setGondola(rawBody);
+        setTrain(rawBody);
+        setBike(rawBody);
+        setWalking(rawBody);
         GuideItem self = GuideItemsProvider.retrieveStoredGuideItem(this.getGuideItemId());
         if (self != null) {
             if (this.getVersion() > self.getVersion()) {
@@ -113,7 +109,7 @@ public class GuideItem extends Model {
         }
     }
 
-    public void setVersion() {
+    public void setVersion(JsonObject rawBody) {
         final JsonElement version = rawBody.get("custom_fields").getAsJsonObject().get("version");
         setFieldValue(version, new SetFieldValue() {
             @Override
@@ -138,7 +134,7 @@ public class GuideItem extends Model {
         return version;
     }
 
-    public void setName() {
+    public void setName(JsonObject rawBody) {
         final JsonElement name = rawBody.get("title");
         setFieldValue(name, new SetFieldValue() {
             @Override
@@ -156,7 +152,7 @@ public class GuideItem extends Model {
         return this.name;
     }
 
-    public void setGuideItemId() {
+    public void setGuideItemId(JsonObject rawBody) {
         final JsonElement id = rawBody.get("custom_fields").getAsJsonObject().get("id");
         setFieldValue(id, new SetFieldValue() {
             @Override
@@ -174,7 +170,7 @@ public class GuideItem extends Model {
         return this.guideItemId;
     }
 
-    public void setCategory() {
+    public void setCategory(JsonObject rawBody) {
         final JsonElement category = rawBody.get("custom_fields").getAsJsonObject().get("category");
         setFieldValue(category, new SetFieldValue() {
             @Override
@@ -192,7 +188,7 @@ public class GuideItem extends Model {
         return this.category;
     }
 
-    public void setDescription() {
+    public void setDescription(JsonObject rawBody) {
         final JsonElement description = rawBody.get("custom_fields")
                 .getAsJsonObject().get("description");
         setFieldValue(description, new SetFieldValue() {
@@ -211,7 +207,7 @@ public class GuideItem extends Model {
         return this.description;
     }
 
-    public void setShortDescription() {
+    public void setShortDescription(JsonObject rawBody) {
         final JsonElement shortDescription = rawBody.get("custom_fields")
                 .getAsJsonObject().get("shortDescription");
         setFieldValue(shortDescription, new SetFieldValue() {
@@ -230,7 +226,7 @@ public class GuideItem extends Model {
         return this.shortDescription;
     }
 
-    public void setEmail() {
+    public void setEmail(JsonObject rawBody) {
         final JsonElement email = rawBody.get("custom_fields").getAsJsonObject().get("email");
         setFieldValue(email, new SetFieldValue() {
             @Override
@@ -248,7 +244,7 @@ public class GuideItem extends Model {
         return this.email;
     }
 
-    public void setPhone() {
+    public void setPhone(JsonObject rawBody) {
         final JsonElement phone = rawBody.get("custom_fields").getAsJsonObject().get("phone");
         setFieldValue(phone, new SetFieldValue() {
             @Override
@@ -266,7 +262,7 @@ public class GuideItem extends Model {
         return this.phone;
     }
 
-    public void setWebsite() {
+    public void setWebsite(JsonObject rawBody) {
         final JsonElement website = rawBody.get("custom_fields").getAsJsonObject().get("website");
         setFieldValue(website, new SetFieldValue() {
             @Override
@@ -284,7 +280,7 @@ public class GuideItem extends Model {
         return this.website;
     }
 
-    public void setAddress() {
+    public void setAddress(JsonObject rawBody) {
         final JsonElement address = rawBody.get("custom_fields").getAsJsonObject().get("address");
         setFieldValue(address, new SetFieldValue() {
             @Override
@@ -302,7 +298,7 @@ public class GuideItem extends Model {
         return this.address;
     }
 
-    public void setSchedule() {
+    public void setSchedule(JsonObject rawBody) {
         final JsonElement schedule = rawBody.get("custom_fields").getAsJsonObject().get("schedule");
         setFieldValue(schedule, new SetFieldValue() {
             @Override
@@ -320,7 +316,7 @@ public class GuideItem extends Model {
         return this.schedule;
     }
 
-    public void setMinCost() {
+    public void setMinCost(JsonObject rawBody) {
         final JsonElement minCost = rawBody.get("custom_fields").getAsJsonObject().get("min_cost");
         setFieldValue(minCost, new SetFieldValue() {
             @Override
@@ -338,7 +334,7 @@ public class GuideItem extends Model {
         return this.minCost;
     }
 
-    public void setMaxCost() {
+    public void setMaxCost(JsonObject rawBody) {
         final JsonElement maxCost = rawBody.get("custom_fields").getAsJsonObject().get("max_cost");
         setFieldValue(maxCost, new SetFieldValue() {
             @Override
@@ -356,7 +352,7 @@ public class GuideItem extends Model {
         return this.maxCost;
     }
 
-    public void setCost() {
+    public void setCost(JsonObject rawBody) {
         final JsonElement cost = rawBody.get("custom_fields").getAsJsonObject().get("cost");
         setFieldValue(cost, new SetFieldValue() {
             @Override
@@ -374,7 +370,7 @@ public class GuideItem extends Model {
         return this.cost;
     }
 
-    public void setCreditCard() {
+    public void setCreditCard(JsonObject rawBody) {
         final JsonElement creditCard = rawBody.get("custom_fields").getAsJsonObject().get("creditcard");
         setFieldValue(creditCard, new SetFieldValue() {
             @Override
@@ -392,7 +388,7 @@ public class GuideItem extends Model {
         return this.creditCard;
     }
 
-    public void setBreakfast() {
+    public void setBreakfast(JsonObject rawBody) {
         final JsonElement breakfast = rawBody.get("custom_fields").getAsJsonObject().get("breakfast");
         setFieldValue(breakfast, new SetFieldValue() {
             @Override
@@ -410,7 +406,7 @@ public class GuideItem extends Model {
         return this.breakfast;
     }
 
-    public void setCapacity() {
+    public void setCapacity(JsonObject rawBody) {
         final JsonElement capacity = rawBody.get("custom_fields").getAsJsonObject().get("capacity");
         setFieldValue(capacity, new SetFieldValue() {
             @Override
@@ -428,7 +424,7 @@ public class GuideItem extends Model {
         return this.capacity;
     }
 
-    public void setMetro() {
+    public void setMetro(JsonObject rawBody) {
         final JsonElement metro = rawBody.get("custom_fields").getAsJsonObject().get("metro");
         setFieldValue(metro, new SetFieldValue() {
             @Override
@@ -446,7 +442,7 @@ public class GuideItem extends Model {
         return this.metro;
     }
 
-    public void setTram() {
+    public void setTram(JsonObject rawBody) {
         final JsonElement tram = rawBody.get("custom_fields").getAsJsonObject().get("tram");
         setFieldValue(tram, new SetFieldValue() {
             @Override
@@ -464,7 +460,7 @@ public class GuideItem extends Model {
         return this.tram;
     }
 
-    public void setBus() {
+    public void setBus(JsonObject rawBody) {
         final JsonElement bus = rawBody.get("custom_fields").getAsJsonObject().get("bus");
         setFieldValue(bus, new SetFieldValue() {
             @Override
@@ -482,7 +478,7 @@ public class GuideItem extends Model {
         return this.bus;
     }
 
-    public void setPlane() {
+    public void setPlane(JsonObject rawBody) {
         final JsonElement plane = rawBody.get("custom_fields").getAsJsonObject().get("plane");
         setFieldValue(plane, new SetFieldValue() {
             @Override
@@ -500,7 +496,7 @@ public class GuideItem extends Model {
         return this.plane;
     }
 
-    public void setBoat() {
+    public void setBoat(JsonObject rawBody) {
         final JsonElement boat = rawBody.get("custom_fields").getAsJsonObject().get("boat");
         setFieldValue(boat, new SetFieldValue() {
             @Override
@@ -518,7 +514,7 @@ public class GuideItem extends Model {
         return this.boat;
     }
 
-    public void setCar() {
+    public void setCar(JsonObject rawBody) {
         final JsonElement car = rawBody.get("custom_fields").getAsJsonObject().get("car");
         setFieldValue(car, new SetFieldValue() {
             @Override
@@ -536,7 +532,7 @@ public class GuideItem extends Model {
         return this.car;
     }
 
-    public void setGondola() {
+    public void setGondola(JsonObject rawBody) {
         final JsonElement gondola = rawBody.get("custom_fields").getAsJsonObject().get("gondola");
         setFieldValue(gondola, new SetFieldValue() {
             @Override
@@ -554,7 +550,7 @@ public class GuideItem extends Model {
         return this.gondola;
     }
 
-    public void setTrain() {
+    public void setTrain(JsonObject rawBody) {
         final JsonElement train = rawBody.get("custom_fields").getAsJsonObject().get("train");
         setFieldValue(train, new SetFieldValue() {
             @Override
@@ -572,7 +568,7 @@ public class GuideItem extends Model {
         return this.train;
     }
 
-    public void setBike() {
+    public void setBike(JsonObject rawBody) {
         final JsonElement bike = rawBody.get("custom_fields").getAsJsonObject().get("bike");
         setFieldValue(bike, new SetFieldValue() {
             @Override
@@ -590,7 +586,7 @@ public class GuideItem extends Model {
         return this.bike;
     }
 
-    public void setWalking() {
+    public void setWalking(JsonObject rawBody) {
         final JsonElement walking = rawBody.get("custom_fields").getAsJsonObject().get("walking");
         setFieldValue(walking, new SetFieldValue() {
             @Override
