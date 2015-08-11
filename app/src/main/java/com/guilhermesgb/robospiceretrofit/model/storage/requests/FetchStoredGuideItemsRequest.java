@@ -1,6 +1,6 @@
 package com.guilhermesgb.robospiceretrofit.model.storage.requests;
 
-import com.guilhermesgb.robospiceretrofit.view.GuideItemCollection;
+import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
 import com.octo.android.robospice.request.SpiceRequest;
 

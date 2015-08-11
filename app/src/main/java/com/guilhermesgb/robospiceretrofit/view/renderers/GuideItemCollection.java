@@ -1,4 +1,4 @@
-package com.guilhermesgb.robospiceretrofit.view;
+package com.guilhermesgb.robospiceretrofit.view.renderers;
 
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.pedrogomez.renderers.ListAdapteeCollection;

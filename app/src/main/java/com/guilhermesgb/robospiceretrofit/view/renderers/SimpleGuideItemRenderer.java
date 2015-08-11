@@ -1,9 +1,9 @@
 package com.guilhermesgb.robospiceretrofit.view.renderers;
 
 import android.content.Context;
-import android.view.View;
 
 import com.guilhermesgb.robospiceretrofit.R;
+import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 
 public class SimpleGuideItemRenderer extends GuideItemRenderer {
 
@@ -13,9 +13,10 @@ public class SimpleGuideItemRenderer extends GuideItemRenderer {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.renderer_guide_item;
+        return R.layout.layout_guide_item_simple;
     }
 
-    protected void setUpParticularitiesInView(View view) {}
+    @Override
+    public void continueRendering(GuideItem guideItem) {}
 
 }

@@ -7,7 +7,7 @@ import com.guilhermesgb.robospiceretrofit.model.storage.requests.FetchStoredGuid
 import com.guilhermesgb.robospiceretrofit.model.storage.requests.SyncStoredGuideItemsRequest;
 import com.guilhermesgb.robospiceretrofit.presenter.network.listeners.SubsequentRequestListener;
 import com.guilhermesgb.robospiceretrofit.presenter.network.requests.FetchRemoteGuideItemsRequest;
-import com.guilhermesgb.robospiceretrofit.view.GuideItemCollection;
+import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.view.GuideItemsView;
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter;
 import com.octo.android.robospice.exception.NoNetworkException;

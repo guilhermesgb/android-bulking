@@ -14,6 +14,7 @@ import com.guilhermesgb.robospiceretrofit.model.storage.OfflineSpiceService;
 import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService;
+import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemRendererBuilder;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.ParcelableLceViewState;

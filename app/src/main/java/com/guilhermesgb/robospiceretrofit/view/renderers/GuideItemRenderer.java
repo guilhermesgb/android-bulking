@@ -10,44 +10,35 @@ import com.guilhermesgb.robospiceretrofit.R;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.pedrogomez.renderers.Renderer;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public abstract class GuideItemRenderer extends Renderer<GuideItem> {
 
     private final Context context;
 
-    private TextView guideItemName;
-    private TextView guideItemCategory;
+    @Bind(R.id.guide_item_name) TextView guideItemName;
+    @Bind(R.id.guide_item_category) TextView guideItemCategory;
 
     public GuideItemRenderer(Context context) {
         this.context = context;
     }
 
-    protected Context getContext() {
+    public Context getContext() {
         return context;
     }
 
-    protected TextView getGuideItemName() {
-        return guideItemName;
-    }
-
-    protected TextView getGuideItemCategory() {
-        return guideItemCategory;
-    }
-
     @Override
-    protected void setUpView(View view) {
-        guideItemName = (TextView) view.findViewById(R.id.guide_item_name);
-        guideItemCategory = (TextView) view.findViewById(R.id.guide_item_category);
-        setUpParticularitiesInView(view);
-    }
-
-    protected abstract void setUpParticularitiesInView(View view);
+    protected void setUpView(View view) {}
 
     @Override
     protected void hookListeners(View view) {}
 
     @Override
     protected View inflate(LayoutInflater inflater, ViewGroup parent) {
-        return inflater.inflate(getLayoutResource(), parent, false);
+        View inflatedView = inflater.inflate(getLayoutResource(), parent, false);
+        ButterKnife.bind(this, inflatedView);
+        return inflatedView;
     }
 
     protected abstract int getLayoutResource();
@@ -57,7 +48,10 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
         GuideItem guideItem = getContent();
         renderName(guideItem);
         renderCategory(guideItem);
+        continueRendering(guideItem);
     }
+
+    protected abstract void continueRendering(GuideItem guideItem);
 
     private void renderName(GuideItem guideItem) {
         this.guideItemName.setText(guideItem.getName());
