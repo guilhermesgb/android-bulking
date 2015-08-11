@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GuideItemsRequest extends ResolvedSignatureRequest {
+public class FetchRemoteGuideItemsRequest extends ResolvedSignatureRequest {
 
     private static final String REQUEST_INTERFACE = "retrieveGuideItems";
     private static final Map<String, Object> REQUEST_PARAMS = new HashMap<>();
@@ -15,12 +15,12 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
         REQUEST_PARAMS.put("page", 1);
     }
 
-    protected GuideItemsRequest() throws NoSuchMethodException, IllegalAccessException,
+    protected FetchRemoteGuideItemsRequest() throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, ClassCastException {
         super(REQUEST_PARAMS);
     }
 
-    protected GuideItemsRequest(int page) throws NoSuchMethodException, IllegalAccessException,
+    protected FetchRemoteGuideItemsRequest(int page) throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, ClassCastException {
         this();
         setPage(page);
@@ -34,8 +34,8 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
         return getRequestSignatureIntegerVariableValue("page");
     }
 
-    public GuideItemsRequest getNext() {
-        return GuideItemsRequest.buildRequest(getPage() + 1);
+    public FetchRemoteGuideItemsRequest getNext() {
+        return FetchRemoteGuideItemsRequest.buildRequest(getPage() + 1);
     }
 
     protected JsonObject doLoadDataFromNetwork(Method requestInterface) throws Exception {
@@ -53,13 +53,13 @@ public class GuideItemsRequest extends ResolvedSignatureRequest {
         return currentMethodResolvedSignature.replace("{page}", Integer.toString(page));
     }
 
-    public static GuideItemsRequest buildRequest(Integer... initialPage) {
+    public static FetchRemoteGuideItemsRequest buildRequest(Integer... initialPage) {
         try {
             if (initialPage.length == 0) {
-                return new GuideItemsRequest();
+                return new FetchRemoteGuideItemsRequest();
             }
             else {
-                return new GuideItemsRequest(initialPage[0]);
+                return new FetchRemoteGuideItemsRequest(initialPage[0]);
             }
         }
         catch (Exception exception) {

@@ -1,19 +1,24 @@
 package com.guilhermesgb.robospiceretrofit.view;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.guilhermesgb.robospiceretrofit.R;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
+import com.guilhermesgb.robospiceretrofit.model.storage.OfflineSpiceService;
 import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
+import com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService;
 import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemRendererBuilder;
-import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateActivity;
+import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.ParcelableLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
+import com.octo.android.robospice.SpiceManager;
 import com.pedrogomez.renderers.RendererAdapter;
 
 import java.util.LinkedList;
@@ -21,24 +26,56 @@ import java.util.List;
 
 import butterknife.Bind;
 
-public class GuideItemsActivity
-        extends MvpLceViewStateActivity<SwipeRefreshLayout, List<GuideItem>, GuideItemsView, GuideItemsPresenter>
+public class GuideItemsFragment extends
+        MvpLceViewStateFragment<SwipeRefreshLayout, List<GuideItem>, GuideItemsView, GuideItemsPresenter>
         implements GuideItemsView, SwipeRefreshLayout.OnRefreshListener {
 
     private RendererAdapter<GuideItem> adapter;
-    @Bind(R.id.contentView) SwipeRefreshLayout contentView;
-    @Bind(R.id.list_view) ListView listView;
+    private SpiceManager networkSpiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
+    private SpiceManager storageSpiceManager = new SpiceManager(OfflineSpiceService.class);
     private List<GuideItem> lastSeenData;
 
+    @Bind(R.id.contentView) SwipeRefreshLayout contentView;
+    @Bind(R.id.listView) ListView listView;
+    @Bind(R.id.countView) TextView dataCount;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guide_items);
+        if (!networkSpiceManager.isStarted()) {
+            networkSpiceManager.start(getActivity().getApplicationContext());
+        }
+        if (!storageSpiceManager.isStarted()) {
+            storageSpiceManager.start(getActivity().getApplicationContext());
+        }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setRetainInstance(true);
         contentView.setOnRefreshListener(this);
-        adapter = new RendererAdapter<>(getLayoutInflater(),
-                new GuideItemRendererBuilder(getApplicationContext()),
+        adapter = new RendererAdapter<>(getActivity().getLayoutInflater(),
+                new GuideItemRendererBuilder(getActivity().getApplicationContext()),
                 new GuideItemCollection(new LinkedList<GuideItem>()));
         listView.setAdapter(adapter);
+        dataCount.setText("0");
+    }
+
+    @Override
+    public void onDestroy() {
+        if (networkSpiceManager.isStarted()) {
+            networkSpiceManager.shouldStop();
+        }
+        if (storageSpiceManager.isStarted()) {
+            storageSpiceManager.shouldStop();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    protected int getLayoutRes() {
+        return R.layout.fragment_guide_items;
     }
 
     @NonNull
@@ -48,8 +85,13 @@ public class GuideItemsActivity
     }
 
     @Override
-    public Context getContext() {
-        return getApplicationContext();
+    public SpiceManager getNetworkSpiceManager() {
+        return networkSpiceManager;
+    }
+
+    @Override
+    public SpiceManager getStorageSpiceManager() {
+        return storageSpiceManager;
     }
 
     @NonNull
@@ -66,7 +108,10 @@ public class GuideItemsActivity
     @Override
     public void setData(List<GuideItem> guideItems) {
         adapter.clear();
-        adapter.addAll(guideItems);
+        if (guideItems != null) {
+            adapter.addAll(guideItems);
+            dataCount.setText(Integer.toString(guideItems.size()));
+        }
         adapter.notifyDataSetChanged();
         lastSeenData = guideItems;
     }

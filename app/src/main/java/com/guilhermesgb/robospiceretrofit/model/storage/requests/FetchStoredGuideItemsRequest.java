@@ -4,9 +4,9 @@ import com.guilhermesgb.robospiceretrofit.view.GuideItemCollection;
 import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
 import com.octo.android.robospice.request.SpiceRequest;
 
-public class StoredGuideItemsRequest extends SpiceRequest<GuideItemCollection> {
+public class FetchStoredGuideItemsRequest extends SpiceRequest<GuideItemCollection> {
 
-    public StoredGuideItemsRequest() {
+    public FetchStoredGuideItemsRequest() {
         super(GuideItemCollection.class);
     }
 
