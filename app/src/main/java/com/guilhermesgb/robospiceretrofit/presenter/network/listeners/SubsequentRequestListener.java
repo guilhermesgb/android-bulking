@@ -45,6 +45,13 @@ public abstract class SubsequentRequestListener<T> implements RequestListener<T>
     @Override
     public void onRequestSuccess(T response) {
         actUponThisRequestSucceeded(response);
+    }
+
+    public void actUponThisRequestSucceeded(T response) {
+        totallySucceeded();
+    }
+
+    public void totallySucceeded() {
         synchronized (lock) {
             addSuccess(syncUuid);
             if (successTargetReached(syncUuid)) {
@@ -52,8 +59,6 @@ public abstract class SubsequentRequestListener<T> implements RequestListener<T>
             }
         }
     }
-
-    public abstract void actUponThisRequestSucceeded(T response);
 
     public abstract void actUponAllRequestsSucceeded();
 

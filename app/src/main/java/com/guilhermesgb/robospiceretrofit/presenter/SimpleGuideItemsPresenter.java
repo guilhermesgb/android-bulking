@@ -43,23 +43,32 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
 
     private void restoreCachedGuideItems(boolean pullToRefresh) {
         if (isViewAttached() && getView() != null) {
+            Log.v(TAG, "FETCH STORED RESULTS");
             getView().getStorageSpiceManager().execute(new FetchStoredGuideItemsRequest(),
                     new StoredGuideItemsRequestListener(null, pullToRefresh));
+        }
+        else {
+            Log.v(TAG, "VIEW IS NULL, ABORTING FETCH STORED RESULTS");
         }
     }
 
     private void syncGuideItems(FetchRemoteGuideItemsRequest guideItemsRequest, boolean pullToRefresh) {
         if (isViewAttached() && getView() != null) {
+            Log.v(TAG, "EXECUTE " + guideItemsRequest.getCurrentResolvedRequestSignature());
             getView().getNetworkSpiceManager().execute(guideItemsRequest,
                     guideItemsRequest.getCurrentResolvedRequestSignature(),
                     (pullToRefresh ? DurationInMillis.ALWAYS_EXPIRED : DurationInMillis.ONE_DAY),
                     new InitialGuideItemsRequestListener(guideItemsRequest, pullToRefresh));
         }
+        else {
+            Log.v(TAG, "VIEW IS NULL, ABORTING EXECUTE " + guideItemsRequest.getCurrentResolvedRequestSignature());
+        }
     }
 
-    private void continueSyncingGuideItems(FetchRemoteGuideItemsRequest guideItemsRequest,
+    private void continueSyncingGuideItems(final FetchRemoteGuideItemsRequest guideItemsRequest,
             final String syncUuid, final boolean pullToRefresh) {
         if (isViewAttached() && getView() != null) {
+            Log.v(TAG, "EXECUTE " + guideItemsRequest.getCurrentResolvedRequestSignature());
             getView().getNetworkSpiceManager().execute(guideItemsRequest,
                 guideItemsRequest.getCurrentResolvedRequestSignature(),
                 (pullToRefresh ? DurationInMillis.ALWAYS_EXPIRED : DurationInMillis.ONE_DAY),
@@ -86,6 +95,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
 
                 @Override
                 public void actUponThisRequestSucceeded(JsonObject response) {
+                    Log.v(TAG, "RESPONSE SUCCESSFUL FOR " + guideItemsRequest.getCurrentResolvedRequestSignature());
                     if (isViewAttached() && getView() != null) {
                         getView().getStorageSpiceManager().execute(
                                 new SyncStoredGuideItemsRequest(response), new RequestListener<Void>() {
@@ -98,18 +108,28 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                             }
 
                             @Override
-                            public void onRequestSuccess(Void voidValue) {}
+                            public void onRequestSuccess(Void voidValue) {
+                                Log.v(TAG, "PARSED RESPONSE FOR " + guideItemsRequest.getCurrentResolvedRequestSignature());
+                                totallySucceeded();
+                            }
 
                         });
+                    }
+                    else {
+                        Log.v(TAG, "VIEW IS NULL, ABORTING SUCCESS OF RESPONSE OF " + guideItemsRequest.getCurrentResolvedRequestSignature());
                     }
                 }
 
                 @Override
                 public void actUponAllRequestsSucceeded() {
+                    Log.v(TAG, "ALL SUBSEQUENT REQUESTS SUCCEEDED, LAST WAS " + guideItemsRequest.getCurrentResolvedRequestSignature());
                     restoreCachedGuideItems(pullToRefresh);
                 }
 
             });
+        }
+        else {
+            Log.v(TAG, "VIEW IS NULL, ABORTING EXECUTE " + guideItemsRequest.getCurrentResolvedRequestSignature());
         }
     }
 
@@ -121,8 +141,18 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
 
     public void showErrorIfNoContentAvailable(final Throwable exception, final boolean pullToRefresh) {
         if (isViewAttached() && getView() != null) {
+            Log.v(TAG, "FETCH STORED RESULTS AND SHOW ERROR IF NONE PRESENT");
             getView().getStorageSpiceManager().execute(new FetchStoredGuideItemsRequest(),
                     new StoredGuideItemsRequestListener(exception, pullToRefresh));
+        }
+        else {
+            Log.v(TAG, "VIEW IS NULL, ABORTING FETCH STORED RESULTS AND SHOW ERROR IF NONE PRESENT");
+        }
+    }
+
+    public void showError(Throwable exception, boolean pullToRefresh) {
+        if (isViewAttached() && getView() != null) {
+            getView().showError(exception, pullToRefresh);
         }
     }
 
@@ -141,9 +171,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
         public void onRequestFailure(SpiceException spiceException) {
             Log.e(TAG, "Retrieval of Guide Items from Storage failed!");
             spiceException.printStackTrace();
-            if (isViewAttached() && getView() != null) {
-                getView().showError(spiceException, pullToRefresh);
-            }
+            showError(spiceException, pullToRefresh);
         }
 
         @Override
@@ -154,17 +182,13 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
             }
             else {
                 if (pullToRefresh) {
-                    if (isViewAttached() && getView() != null) {
-                        getView().showError(exception, true);
-                    }
+                    showError(exception, true);
                 }
                 else {
                     FetchRemoteGuideItemsRequest guideItemsRequest = FetchRemoteGuideItemsRequest.buildRequest();
                     if (guideItemsRequest == null) {
                         Log.e(TAG, "Guide Items page retrieval interface not found!");
-                        if (isViewAttached() && getView() != null) {
-                            getView().showError(exception, false);
-                        }
+                        showError(exception, false);
                         return;
                     }
                     syncGuideItems(guideItemsRequest, false);
@@ -190,9 +214,7 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
         public void onRequestFailure(SpiceException spiceException) {
             if (spiceException instanceof NoNetworkException) {
                 Log.e(TAG, "Retrieval of Guide Items from Backend failed: no network!");
-                if (isViewAttached() && getView() != null) {
-                    getView().showError(spiceException, pullToRefresh);
-                }
+                showError(spiceException, pullToRefresh);
             }
             else if (spiceException instanceof RequestCancelledException) {
                 Log.e(TAG, "Retrieval of Guide Items from Backend canceled!");
@@ -200,15 +222,14 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
             } else {
                 Log.e(TAG, "Retrieval of Guide Items from Backend failed!");
                 spiceException.printStackTrace();
-                if (isViewAttached() && getView() != null) {
-                    getView().showError(spiceException, pullToRefresh);
-                }
+                showError(spiceException, pullToRefresh);
             }
         }
 
         @Override
         public void onRequestSuccess(final JsonObject response) {
             if (isViewAttached() && getView() != null) {
+                Log.v(TAG, "RESPONSE SUCCESSFUL FOR " + guideItemsRequest.getCurrentResolvedRequestSignature());
                 getView().getStorageSpiceManager().execute(new SyncStoredGuideItemsRequest(response),
                     new RequestListener<Void>() {
 
@@ -216,13 +237,12 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                     public void onRequestFailure(SpiceException spiceException) {
                         Log.e(TAG, "Could not parse Guide Items retrieved from Backend!");
                         spiceException.printStackTrace();
-                        if (isViewAttached() && getView() != null) {
-                            getView().showError(spiceException, pullToRefresh);
-                        }
+                        showError(spiceException, pullToRefresh);
                     }
 
                     @Override
                     public void onRequestSuccess(Void voidValue) {
+                        Log.v(TAG, "PARSED RESPONSE FOR " + guideItemsRequest.getCurrentResolvedRequestSignature());
                         final int remainingRequests = (response.get("pages").getAsInt() - 1);
                         if (remainingRequests > 0) {
                             final String syncUuid = UUID.randomUUID().toString();
@@ -235,6 +255,9 @@ public class SimpleGuideItemsPresenter extends MvpBasePresenter<GuideItemsView>
                     }
 
                 });
+            }
+            else {
+                Log.v(TAG, "VIEW IS NULL, ABORTING PROCESSING OF RESPONSE OF " + guideItemsRequest.getCurrentResolvedRequestSignature());
             }
         }
 
