@@ -9,9 +9,9 @@ import com.pedrogomez.renderers.RendererBuilder;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GuideItemRendererBuilder extends RendererBuilder<GuideItem> {
+public class GuideItemsRendererBuilder extends RendererBuilder<GuideItem> {
 
-    public GuideItemRendererBuilder(Context context) {
+    public GuideItemsRendererBuilder(Context context) {
         setPrototypes(getPrototypes(context));
     }
 

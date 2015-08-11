@@ -15,7 +15,7 @@ import com.guilhermesgb.robospiceretrofit.presenter.GuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.SimpleGuideItemsPresenter;
 import com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService;
 import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemCollection;
-import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemRendererBuilder;
+import com.guilhermesgb.robospiceretrofit.view.renderers.GuideItemsRendererBuilder;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.ParcelableLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
@@ -57,7 +57,7 @@ public class GuideItemsFragment extends
         setRetainInstance(true);
         contentView.setOnRefreshListener(this);
         adapter = new RendererAdapter<>(getActivity().getLayoutInflater(),
-                new GuideItemRendererBuilder(getActivity().getApplicationContext()),
+                new GuideItemsRendererBuilder(getActivity().getApplicationContext()),
                 new GuideItemCollection(new LinkedList<GuideItem>()));
         listView.setAdapter(adapter);
         dataCount.setText("0");
