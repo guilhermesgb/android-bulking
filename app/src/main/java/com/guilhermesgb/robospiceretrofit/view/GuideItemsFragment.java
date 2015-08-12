@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,7 +38,7 @@ public class GuideItemsFragment extends
     private List<GuideItem> lastSeenData;
 
     @Bind(R.id.contentView) SwipeRefreshLayout contentView;
-    @Bind(R.id.recyclerView) ListView recyclerView;
+    @Bind(R.id.listView) ListView listView;
     @Bind(R.id.countView) TextView dataCount;
 
     @Override
@@ -62,11 +60,10 @@ public class GuideItemsFragment extends
         adapter = new RendererAdapter<>(getActivity().getLayoutInflater(),
                 new GuideItemsRendererBuilder(getActivity().getApplicationContext()),
                 new GuideItemCollection(new LinkedList<GuideItem>()));
-//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            recyclerView.setNestedScrollingEnabled(true);
+            listView.setNestedScrollingEnabled(true);
         }
-        recyclerView.setAdapter(adapter);
+        listView.setAdapter(adapter);
         dataCount.setText("0");
     }
 
