@@ -18,7 +18,7 @@ public class HotelGuideItemRenderer extends GuideItemRenderer {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.layout_guide_item_hotel;
+        return R.layout.guide_item_hotel;
     }
 
     @Override

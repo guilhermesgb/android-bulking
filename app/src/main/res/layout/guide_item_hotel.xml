@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/guide_item_name"
@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:maxLines="3"
         android:ellipsize="end"
-        android:gravity="start" />
+        android:gravity="start"/>
 
     <TextView
         android:id="@+id/guide_item_category"
@@ -19,11 +19,11 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:gravity="end"
-        android:textStyle="italic" />
+        android:textStyle="italic"/>
 
     <TextView
         android:id="@+id/guide_item_hotel_capacity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

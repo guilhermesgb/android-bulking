@@ -4,8 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.guilhermesgb.robospiceretrofit.R;
@@ -20,7 +21,7 @@ import com.hannesdorfmann.mosby.mvp.viewstate.lce.MvpLceViewStateFragment;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.ParcelableLceViewState;
 import com.hannesdorfmann.mosby.mvp.viewstate.lce.data.CastedArrayListLceViewState;
 import com.octo.android.robospice.SpiceManager;
-import com.pedrogomez.renderers.RendererAdapter;
+import com.pedrogomez.renderers.RVRendererAdapter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,13 +32,13 @@ public class GuideItemsFragment extends
         MvpLceViewStateFragment<SwipeRefreshLayout, List<GuideItem>, GuideItemsView, GuideItemsPresenter>
         implements GuideItemsView, SwipeRefreshLayout.OnRefreshListener {
 
-    private RendererAdapter<GuideItem> adapter;
+    private RVRendererAdapter<GuideItem> adapter;
     private SpiceManager networkSpiceManager = new SpiceManager(WordPressCMSRetrofitSpiceService.class);
     private SpiceManager storageSpiceManager = new SpiceManager(OfflineSpiceService.class);
     private List<GuideItem> lastSeenData;
 
     @Bind(R.id.contentView) SwipeRefreshLayout contentView;
-    @Bind(R.id.listView) ListView listView;
+    @Bind(R.id.recyclerView) RecyclerView recyclerView;
     @Bind(R.id.countView) TextView dataCount;
 
     @Override
@@ -56,10 +57,11 @@ public class GuideItemsFragment extends
         super.onViewCreated(view, savedInstanceState);
         setRetainInstance(true);
         contentView.setOnRefreshListener(this);
-        adapter = new RendererAdapter<>(getActivity().getLayoutInflater(),
+        adapter = new RVRendererAdapter<>(getActivity().getLayoutInflater(),
                 new GuideItemsRendererBuilder(getActivity().getApplicationContext()),
                 new GuideItemCollection(new LinkedList<GuideItem>()));
-        listView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(adapter);
         dataCount.setText("0");
     }
 

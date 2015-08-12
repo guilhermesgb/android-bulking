@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/guide_item_category"
@@ -11,7 +11,7 @@
         android:maxLines="1"
         android:ellipsize="end"
         android:gravity="start"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/guide_item_name"
@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:maxLines="3"
         android:ellipsize="end"
-        android:gravity="end" />
+        android:gravity="end"/>
 
 </LinearLayout>

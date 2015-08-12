@@ -13,7 +13,7 @@ public class SimpleGuideItemRenderer extends GuideItemRenderer {
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.layout_guide_item_simple;
+        return R.layout.guide_item_simple;
     }
 
     @Override
