@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="jfl_yellow">#f5af00</color>
     <color name="jfl_blue">#172980</color>
     <color name="jfl_white">#FFFFFF</color>
     <color name="jfl_black">#000000</color>
+
 </resources>

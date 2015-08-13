@@ -1,8 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Active Mobile</string>
 
     <string name="txt_error_guide_items_retry">Não foi possível baixar items. Tente novamente.</string>
     <string name="txt_error_guide_items">Não foi possível baixar items.</string>
     <string name="settings">Configurações</string>
+
     <string name="cover_photo_description">Foto de Cover</string>
+
 </resources>
+
