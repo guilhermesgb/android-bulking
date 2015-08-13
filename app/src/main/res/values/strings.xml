@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">RoboSpice+Retrofit</string>
+    <string name="app_name">Active Mobile</string>
 
-    <string name="txt_error_guide_items_retry">Error while loading guide items. Retry here.</string>
-    <string name="txt_error_guide_items">Error while loading guide items.</string>
+    <string name="txt_error_guide_items_retry">Não foi possível baixar items. Tente novamente.</string>
+    <string name="txt_error_guide_items">Não foi possível baixar items.</string>
+    <string name="settings">Configurações</string>
 </resources>
