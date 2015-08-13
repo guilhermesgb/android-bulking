@@ -56,12 +56,31 @@
         android:layout_marginRight="@dimen/activity_horizontal_margin"
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         app:layout_anchor="@id/viewPager"
-        app:layout_anchorGravity="bottom|right|end"
+        app:layout_anchorGravity="bottom|end|right"
         android:src="@drawable/menu_add"
         app:backgroundTint="@color/jfl_yellow"
         app:rippleColor="@color/jfl_blue"
         app:borderWidth="@dimen/fab_border_width"
         app:pressedTranslationZ="12dp"
         app:elevation="6dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/miniFloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        app:layout_anchor="@id/collapsingToolbarLayout"
+        app:layout_anchorGravity="clip_vertical|bottom|end|right"
+        android:src="@drawable/menu_add"
+        app:backgroundTint="@color/jfl_yellow"
+        app:rippleColor="@color/jfl_blue"
+        app:borderWidth="@dimen/fab_border_width"
+        app:pressedTranslationZ="12dp"
+        app:elevation="6dp"
+        app:fabSize="mini"/>
 
 </android.support.design.widget.CoordinatorLayout>
