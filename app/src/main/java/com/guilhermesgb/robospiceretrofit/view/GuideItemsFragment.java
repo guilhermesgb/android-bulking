@@ -1,7 +1,6 @@
 package com.guilhermesgb.robospiceretrofit.view;
 
 import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -60,7 +59,8 @@ public class GuideItemsFragment extends
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setRetainInstance(true);
-        loadingView.getIndeterminateDrawable().setColorFilter(R.color.jfl_yellow, PorterDuff.Mode.SRC_IN);
+        loadingView.getIndeterminateDrawable()
+                .setColorFilter(getResources().getColor(R.color.jfl_yellow), PorterDuff.Mode.SRC_IN);
         contentView.setOnRefreshListener(this);
         contentView.setColorSchemeResources(R.color.jfl_blue, R.color.jfl_yellow);
         adapter = new RVRendererAdapter<>(getActivity().getLayoutInflater(),

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,8 @@
                 android:layout_height="192dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/cover_jfl_alarmes"
-                app:layout_collapseMode="parallax"/>
+                app:layout_collapseMode="parallax"
+                android:contentDescription="@string/cover_photo_description" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/appToolbar"
@@ -43,5 +45,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/menu_add"
+        app:backgroundTint="@color/jfl_yellow"
+        app:rippleColor="@color/jfl_blue"
+        app:borderWidth="@dimen/fab_border_width"
+        app:pressedTranslationZ="12dp"
+        app:elevation="6dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
