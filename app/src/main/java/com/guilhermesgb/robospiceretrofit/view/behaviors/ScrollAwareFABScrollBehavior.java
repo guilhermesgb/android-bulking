@@ -3,10 +3,8 @@ package com.guilhermesgb.robospiceretrofit.view.behaviors;
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 @SuppressWarnings("unused")
@@ -21,7 +19,7 @@ public class ScrollAwareFABScrollBehavior extends FloatingActionButton.Behavior 
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, FloatingActionButton child, View dependency) {
         fabShouldScroll = false;
-        return super.onDependentViewChanged(parent, child, dependency);
+        return child.getVisibility() == View.VISIBLE && super.onDependentViewChanged(parent, child, dependency);
     }
 
     @Override
@@ -39,18 +37,22 @@ public class ScrollAwareFABScrollBehavior extends FloatingActionButton.Behavior 
         int lowerThreshold = 0;
         int upperThreshold = child.getHeight() * 2;
         if (!fabShouldScroll && child.getTranslationY() == lowerThreshold) {
+            if (child.getVisibility() != View.VISIBLE) {
+                child.setTranslationY(upperThreshold);
+            }
             fabShouldScroll = true;
         }
         if (fabShouldScroll) {
             int translationY = Math.max(lowerThreshold, (int) child.getTranslationY() + dyConsumed);
             if (translationY > upperThreshold) {
                 translationY = upperThreshold;
+                if (child.getVisibility() == View.VISIBLE) {
+                    child.setVisibility(View.INVISIBLE);
+                }
             }
             child.setTranslationY(translationY);
-            if (child.getTranslationY() > target.getHeight() && child.getVisibility() == View.VISIBLE) {
-                child.hide();
-            } else if (child.getTranslationY() <= target.getHeight() && child.getVisibility() != View.VISIBLE) {
-                child.show();
+            if (dyConsumed < 0 && child.getVisibility() == View.INVISIBLE) {
+                child.setVisibility(View.VISIBLE);
             }
         }
     }
