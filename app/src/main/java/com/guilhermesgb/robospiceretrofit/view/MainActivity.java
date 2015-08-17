@@ -70,4 +70,8 @@ public class MainActivity extends MosbyActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public CoordinatorLayout getCoordinatorLayout() {
+        return coordinatorLayout;
+    }
+
 }
