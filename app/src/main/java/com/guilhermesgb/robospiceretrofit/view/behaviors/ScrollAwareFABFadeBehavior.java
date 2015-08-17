@@ -8,9 +8,9 @@ import android.util.AttributeSet;
 import android.view.View;
 
 @SuppressWarnings("unused")
-public class ScrollAwareMiniFABBehavior extends FloatingActionButton.Behavior {
+public class ScrollAwareFABFadeBehavior extends FloatingActionButton.Behavior {
 
-    public ScrollAwareMiniFABBehavior(Context context, AttributeSet attrs) {
+    public ScrollAwareFABFadeBehavior(Context context, AttributeSet attrs) {
         super();
     }
 
