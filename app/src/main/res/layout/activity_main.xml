@@ -75,7 +75,7 @@
         android:layout_marginBottom="@dimen/activity_horizontal_margin"
         app:layout_anchor="@id/collapsingToolbarLayout"
         app:layout_anchorGravity="clip_vertical|bottom|end|right"
-        app:layout_behavior="com.guilhermesgb.robospiceretrofit.view.behaviors.ScrollAwareFABBehavior"
+        app:layout_behavior="com.guilhermesgb.robospiceretrofit.view.behaviors.ScrollAwareMiniFABBehavior"
         android:src="@drawable/menu_add"
         app:backgroundTint="@color/jfl_yellow"
         app:rippleColor="@color/jfl_blue"
