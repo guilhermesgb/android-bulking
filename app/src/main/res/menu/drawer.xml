@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_1"
+            android:checked="true"
+            android:icon="@drawable/notification_icon"
+            android:title="Navigation Item 1"/>
+        <item
+            android:id="@+id/navigation_item_2"
+            android:icon="@drawable/notification_icon"
+            android:title="Navigation Item 2"/>
+    </group>
+
+    <item
+        android:id="@+id/navigation_subheader"
+        android:title="Navigation Subheader">
+        <menu>
+            <item
+                android:id="@+id/navigation_sub_item_1_1"
+                android:icon="@drawable/notification_icon"
+                android:title="Navigation Subitem 1.1"/>
+            <item
+                android:id="@+id/navigation_sub_item_1_2"
+                android:icon="@drawable/notification_icon"
+                android:title="Navigation Subitem 1.2"/>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/navigation_subheader2"
+        android:title="Navigation Subheader 2">
+        <menu>
+            <item
+                android:id="@+id/navigation_sub_item_2_1"
+                android:icon="@drawable/notification_icon"
+                android:title="Navigation Subitem 2.1"/>
+            <item
+                android:id="@+id/navigation_sub_item_2_2"
+                android:icon="@drawable/notification_icon"
+                android:title="Navigation Subitem 2.2"/>
+        </menu>
+    </item>
+
+</menu>
