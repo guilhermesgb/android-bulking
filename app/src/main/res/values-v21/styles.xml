@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="BaseAppTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="android:colorPrimary">@color/jfl_blue</item>
         <item name="android:colorPrimaryDark">@color/snackbar_background_color</item>
-        <item name="android:navigationBarColor">@color/snackbar_background_color</item>
         <item name="android:colorAccent">@color/jfl_yellow</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/snackbar_background_color</item>
     </style>
 
 </resources>
