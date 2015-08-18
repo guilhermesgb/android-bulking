@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="BaseAppTheme">
         <item name="android:colorPrimaryDark">@color/snackbar_background_color</item>
         <item name="android:navigationBarColor">@color/snackbar_background_color</item>
+        <item name="android:colorAccent">@color/jfl_yellow</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

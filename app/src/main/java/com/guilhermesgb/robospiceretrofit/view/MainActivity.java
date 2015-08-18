@@ -36,7 +36,7 @@ public class MainActivity extends MosbyActivity implements NavigationView.OnNavi
         setContentView(R.layout.activity_main);
         navigationViewLeft.setNavigationItemSelectedListener(this);
         navigationViewRight.setNavigationItemSelectedListener(this);
-        toolbar.setNavigationIcon(R.drawable.notification_icon);
+        toolbar.setNavigationIcon(android.R.drawable.ic_menu_directions);
         setSupportActionBar(toolbar);
         collapsingToolbarLayout.setTitle(getString(R.string.app_name));
         FragmentStatePagerAdapter adapter = new FragmentStatePagerAdapter(getSupportFragmentManager()) {

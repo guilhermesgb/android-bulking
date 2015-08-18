@@ -15,6 +15,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="@dimen/fragment_vertical_margin"
+            android:paddingBottom="@dimen/fragment_vertical_margin"
             android:clipToPadding="false"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
