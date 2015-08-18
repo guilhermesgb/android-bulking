@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textColorHint">@color/jfl_blue</item>
+    </style>
+
+    <style name="AppTheme" parent="BaseAppTheme">
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
         <item name="colorPrimary">@color/jfl_blue</item>
         <item name="colorPrimaryDark">@color/snackbar_background_color</item>
         <item name="colorAccent">@color/jfl_yellow</item>
+        <item name="colorControlNormal">@color/jfl_blue</item>
+        <item name="colorControlActivated">@color/jfl_yellow</item>
     </style>
 
     <style name="CollapsedToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
@@ -16,6 +22,13 @@
         <item name="android:textSize">18pt</item>
         <item name="android:textColor">@color/jfl_white</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Design.Hint" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@color/jfl_yellow</item>
+    </style>
+    <style name="Widget.Design.TextInputLayout" parent="android:Widget">
+        <item name="hintTextAppearance">@style/TextAppearance.Design.Hint</item>
     </style>
 
 </resources>

@@ -38,11 +38,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="30dp">
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textAutoCorrect"
                 android:hint="Enter some text here"/>
+
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
