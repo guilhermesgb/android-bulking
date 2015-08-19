@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.guilhermesgb.robospiceretrofit.model.storage.GuideItemsProvider;
@@ -40,6 +41,7 @@ public class GuideItem extends Model implements Parcelable {
     @Column private String train = null;
     @Column private String bike = null;
     @Column private String walking = null;
+    @Column private String imageUrl = null;
 
     public GuideItem() {
         super();
@@ -74,6 +76,7 @@ public class GuideItem extends Model implements Parcelable {
         setTrain(rawBody);
         setBike(rawBody);
         setWalking(rawBody);
+        setImageUrl(rawBody);
         GuideItem self = GuideItemsProvider.retrieveStoredGuideItem(this.getGuideItemId());
         if (self != null) {
             if (this.getVersion() > self.getVersion()) {
@@ -104,6 +107,7 @@ public class GuideItem extends Model implements Parcelable {
                 self.setTrain(this.getTrain());
                 self.setBike(this.getBike());
                 self.setWalking(this.getWalking());
+                self.setImageUrl(this.getImageUrl());
                 self.save();
             }
         }
@@ -136,6 +140,7 @@ public class GuideItem extends Model implements Parcelable {
         train = in.readString();
         bike = in.readString();
         walking = in.readString();
+        imageUrl = in.readString();
     }
 
     @Override
@@ -168,6 +173,7 @@ public class GuideItem extends Model implements Parcelable {
         dest.writeString(train);
         dest.writeString(bike);
         dest.writeString(walking);
+        dest.writeString(imageUrl);
     }
 
     public static final Creator<GuideItem> CREATOR = new Creator<GuideItem>() {
@@ -677,6 +683,28 @@ public class GuideItem extends Model implements Parcelable {
 
     public String getWalking() {
         return this.walking;
+    }
+
+    public void setImageUrl(JsonObject rawBody) {
+        setImageUrl("");
+        final JsonArray tagArray = rawBody.get("attachments").getAsJsonArray();
+        if (tagArray.size() > 0) {
+            final JsonElement imageUrl = tagArray.get(0).getAsJsonObject().get("url");
+            setFieldValue(imageUrl, new SetFieldValue() {
+                @Override
+                public void doSetFieldValue() {
+                    GuideItem.this.setImageUrl(imageUrl.getAsString());
+                }
+            });
+        }
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return this.imageUrl;
     }
 
     public void setFieldValue(JsonElement value, SetFieldValue callback) {

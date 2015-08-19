@@ -41,4 +41,5 @@ dependencies {
     compile 'com.hannesdorfmann.mosby:core:1.2.0'
     compile 'com.hannesdorfmann.mosby:mvp:1.2.0'
     compile 'com.hannesdorfmann.mosby:viewstate:1.2.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
