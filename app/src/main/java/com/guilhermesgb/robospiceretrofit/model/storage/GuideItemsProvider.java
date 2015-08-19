@@ -20,10 +20,6 @@ public class GuideItemsProvider {
         return new Select().all().from(GuideItem.class).execute();
     }
 
-    public static int getStoredGuideItemsCount() {
-        return new Select().all().from(GuideItem.class).count();
-    }
-
     public static void parseAndSyncGuideItemsWithStorage(JsonObject response) throws IOException {
         JsonArray posts = response.getAsJsonArray("posts");
         for (JsonElement element : posts) {
