@@ -7,7 +7,9 @@
     <string name="txt_error_guide_items">Não foi possível baixar items.</string>
     <string name="settings">Configurações</string>
 
-    <string name="cover_photo_description">Foto de Cover</string>
+    <string name="cover_photo_description">Foto de Plano de Fundo</string>
+
+    <string name="label_phone">Telefone</string>
 
 </resources>
 

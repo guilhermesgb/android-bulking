@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +11,8 @@
     android:layout_marginLeft="@dimen/card_horizontal_margin"
     android:layout_marginEnd="@dimen/card_horizontal_margin"
     android:layout_marginRight="@dimen/card_horizontal_margin"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="4dp"
+    app:elevation="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +47,24 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"/>
 
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/guide_item_category"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="8dp"
+            android:padding="30dp">
+
+            <EditText
+                android:id="@+id/guide_item_venue_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="@string/label_phone"/>
+
+        </android.support.design.widget.TextInputLayout>
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
-
