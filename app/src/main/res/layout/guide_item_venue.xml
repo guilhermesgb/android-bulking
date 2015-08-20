@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:textSize="@dimen/venue_property_text_size"
-            android:hint="@string/label_phone"/>
+            android:hint="@string/label_phone"
+            android:maxLines="1"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -41,7 +42,8 @@
             android:layout_height="wrap_content"
             android:inputType="textUri"
             android:textSize="@dimen/venue_property_text_size"
-            android:hint="@string/label_website"/>
+            android:hint="@string/label_website"
+            android:maxLines="1"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -61,7 +63,8 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:textSize="@dimen/venue_property_text_size"
-            android:hint="@string/label_email"/>
+            android:hint="@string/label_email"
+            android:maxLines="1"/>
 
     </android.support.design.widget.TextInputLayout>
 
@@ -81,7 +84,8 @@
             android:layout_height="wrap_content"
             android:inputType="textPostalAddress"
             android:textSize="@dimen/venue_property_text_size"
-            android:hint="@string/label_address"/>
+            android:hint="@string/label_address"
+            android:maxLines="1"/>
 
     </android.support.design.widget.TextInputLayout>
 

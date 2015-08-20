@@ -2,16 +2,16 @@
 <resources>
 
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:textColorHint">@color/jfl_blue</item>
+        <item name="android:textColorHint">@color/jfl_yellow</item>
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme">
         <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
-        <item name="colorPrimary">@color/jfl_blue</item>
+        <item name="colorPrimary">@color/jfl_yellow</item>
         <item name="colorPrimaryDark">@color/snackbar_background_color</item>
-        <item name="colorAccent">@color/jfl_yellow</item>
-        <item name="colorControlNormal">@color/jfl_blue</item>
-        <item name="colorControlActivated">@color/jfl_yellow</item>
+        <item name="colorAccent">@color/jfl_blue</item>
+        <item name="colorControlNormal">@color/jfl_yellow</item>
+        <item name="colorControlActivated">@color/jfl_blue</item>
     </style>
 
     <style name="CollapsedToolbarTextAppearance" parent="@android:style/TextAppearance.Medium">
