@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,49 +11,21 @@
     android:layout_marginLeft="@dimen/card_horizontal_margin"
     android:layout_marginEnd="@dimen/card_horizontal_margin"
     android:layout_marginRight="@dimen/card_horizontal_margin"
-    card_view:cardCornerRadius="4dp">
+    card_view:cardCornerRadius="4dp"
+    app:elevation="2dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/guide_item_cover"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="@string/cover_photo_description"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"/>
+        <include layout="@layout/guide_item_core"/>
 
-        <TextView
-            android:id="@+id/guide_item_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:gravity="start"
-            android:padding="8dp"
-            android:textSize="26sp"
-            android:textColor="@color/jfl_white"
-            android:background="#8C000000"
-            android:layout_alignBottom="@+id/guide_item_cover"/>
-
-        <Button
-            android:id="@+id/guide_item_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/guide_item_name"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"/>
-
-        <TextView
+        <include
+            layout="@layout/guide_item_description"
             android:id="@+id/guide_item_short_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:ellipsize="end"
-            android:layout_below="@+id/guide_item_category"
-            android:padding="8dp"/>
+            android:layout_below="@id/guide_item_category"/>
 
     </RelativeLayout>
 
