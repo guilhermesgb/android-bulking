@@ -32,7 +32,7 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
     @Bind(R.id.guide_item_venue_address) EditText guideItemVenueAddress;
     @Bind(R.id.guide_item_venue_address_wrapper) TextInputLayout guideItemVenueAddressWrapper;
     final IconDrawable addressIcon = new IconDrawable(getContext(),
-            MaterialIcons.md_location_city).colorRes(R.color.jfl_yellow)
+            MaterialIcons.md_location_on).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
 
     public VenueGuideItemRenderer(Context context) {
