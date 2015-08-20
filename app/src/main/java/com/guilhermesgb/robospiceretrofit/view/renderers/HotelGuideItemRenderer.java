@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 
-public class HotelGuideItemRenderer extends GuideItemRenderer {
+public class HotelGuideItemRenderer extends VenueGuideItemRenderer {
 
     @Bind(R.id.guide_item_hotel_capacity) TextView guideItemHotelCapacity;
 
@@ -24,6 +24,7 @@ public class HotelGuideItemRenderer extends GuideItemRenderer {
 
     @Override
     public void continueRendering(GuideItem guideItem) {
+        super.continueRendering(guideItem);
         renderCapacity(guideItem);
     }
 

@@ -22,6 +22,7 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
     @Bind(R.id.guide_item_name) TextView guideItemName;
     @Bind(R.id.guide_item_cover) ImageView guideItemCover;
     @Bind(R.id.guide_item_category) TextView guideItemCategory;
+    @Bind(R.id.guide_item_short_description) TextView guideItemShortDescription;
 
     public GuideItemRenderer(Context context) {
         this.context = context;
@@ -52,6 +53,7 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
         renderName(guideItem);
         renderCover(guideItem);
         renderCategory(guideItem);
+        renderShortDescription(guideItem);
         continueRendering(guideItem);
     }
 
@@ -62,17 +64,23 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
     }
 
     private void renderCover(GuideItem guideItem) {
-        if (guideItem.getImageUrl() == null || guideItem.getImageUrl().isEmpty()) {
+        final String imagePath = guideItem.getImageUrl();
+        if (imagePath == null || imagePath.isEmpty()) {
             guideItemCover.setImageResource(R.drawable.cover_jfl_alarmes_backup);
             return;
         }
         Picasso.with(getContext())
-                .load(guideItem.getImageUrl())
+                .load(imagePath)
+                .error(R.drawable.cover_jfl_alarmes)
                 .into(guideItemCover);
     }
 
     private void renderCategory(GuideItem guideItem) {
         this.guideItemCategory.setText(guideItem.getCategory());
+    }
+
+    private void renderShortDescription(GuideItem guideItem) {
+        this.guideItemShortDescription.setText(guideItem.getShortDescription());
     }
 
 }

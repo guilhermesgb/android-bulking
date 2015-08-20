@@ -22,6 +22,10 @@ public class GuideItemsRendererBuilder extends RendererBuilder<GuideItem> {
             switch (category) {
                 case "HOTELS":
                     return HotelGuideItemRenderer.class;
+                case "TOURIST_ATTRACTION":
+                case "FOOD_DRINK":
+                case "NIGHT_LIFE":
+                    return SchedulableVenueGuideItemRenderer.class;
                 default:
                     return SimpleGuideItemRenderer.class;
             }
@@ -32,6 +36,7 @@ public class GuideItemsRendererBuilder extends RendererBuilder<GuideItem> {
     private List<Renderer<GuideItem>> getPrototypes(Context context) {
         List<Renderer<GuideItem>> prototypes = new LinkedList<>();
         prototypes.add(new SimpleGuideItemRenderer(context));
+        prototypes.add(new SchedulableVenueGuideItemRenderer(context));
         prototypes.add(new HotelGuideItemRenderer(context));
         return prototypes;
     }

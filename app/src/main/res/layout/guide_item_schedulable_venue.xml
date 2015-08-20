@@ -48,7 +48,7 @@
             android:layout_alignParentRight="true"/>
 
         <TextView
-            android:id="@+id/guide_item_hotel_capacity"
+            android:id="@+id/guide_item_schedulable_venue_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/guide_item_name"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:maxLines="3"
             android:ellipsize="end"
-            android:layout_below="@+id/guide_item_hotel_capacity"
+            android:layout_below="@+id/guide_item_schedulable_venue_schedule"
             android:padding="8dp"/>
 
         <LinearLayout
