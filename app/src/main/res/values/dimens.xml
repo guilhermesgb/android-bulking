@@ -5,7 +5,7 @@
     <dimen name="fragment_vertical_margin">32dp</dimen>
     <dimen name="card_horizontal_margin">6dp</dimen>
     <dimen name="card_vertical_margin">6dp</dimen>
-    <dimen name="venue_property_text_size">12sp</dimen>
+    <dimen name="venue_property_text_size">14sp</dimen>
     <dimen name="venue_property_row_margin">5dp</dimen>
     <dimen name="venue_property_item_padding">4dp</dimen>
     <dimen name="venue_property_icon_size">30dp</dimen>
