@@ -17,39 +17,41 @@
         android:layout_marginEnd="@dimen/venue_property_row_margin"
         android:layout_marginRight="@dimen/venue_property_row_margin">
 
-        <com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/guide_item_venue_phone_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:padding="@dimen/venue_property_item_padding">
 
-            <com.guilhermesgb.robospiceretrofit.view.widgets.IconEditText
+            <EditText
                 android:id="@+id/guide_item_venue_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
+                android:hint="@string/label_phone"
                 android:textSize="@dimen/venue_property_text_size"
                 android:maxLines="1"/>
 
-        </com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
-        <com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/guide_item_venue_website_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:padding="@dimen/venue_property_item_padding">
 
-            <com.guilhermesgb.robospiceretrofit.view.widgets.IconEditText
+            <EditText
                 android:id="@+id/guide_item_venue_website"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textUri"
+                android:hint="@string/label_website"
                 android:textSize="@dimen/venue_property_text_size"
                 android:maxLines="1"/>
 
-        </com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 
@@ -66,39 +68,41 @@
         android:layout_marginEnd="@dimen/venue_property_row_margin"
         android:layout_marginRight="@dimen/venue_property_row_margin">
 
-        <com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/guide_item_venue_email_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:padding="@dimen/venue_property_item_padding">
 
-            <com.guilhermesgb.robospiceretrofit.view.widgets.IconEditText
+            <EditText
                 android:id="@+id/guide_item_venue_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
+                android:hint="@string/label_email"
                 android:textSize="@dimen/venue_property_text_size"
                 android:maxLines="1"/>
 
-        </com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
-        <com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:id="@+id/guide_item_venue_address_wrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:padding="@dimen/venue_property_item_padding">
 
-            <com.guilhermesgb.robospiceretrofit.view.widgets.IconEditText
+            <EditText
                 android:id="@+id/guide_item_venue_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
+                android:hint="@string/label_address"
                 android:textSize="@dimen/venue_property_text_size"
                 android:maxLines="1"/>
 
-        </com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout>
+        </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
 

@@ -28,7 +28,8 @@ public class SchedulableVenueGuideItemRenderer extends VenueGuideItemRenderer {
     }
 
     private void renderSchedule(GuideItem guideItem) {
-        this.guideItemSchedulableVenueSchedule.setText(guideItem.getSchedule());
+        guideItemSchedulableVenueSchedule.setText(guideItem.getSchedule());
+        guideItemSchedulableVenueSchedule.setSelected(true);
     }
 
 }

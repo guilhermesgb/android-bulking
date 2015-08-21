@@ -29,7 +29,7 @@ public class HotelGuideItemRenderer extends VenueGuideItemRenderer {
     }
 
     private void renderCapacity(GuideItem guideItem) {
-        this.guideItemHotelCapacity.setText(guideItem.getCapacity());
+        guideItemHotelCapacity.setText(guideItem.getCapacity());
     }
 
 }

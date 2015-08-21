@@ -60,7 +60,7 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
     protected abstract void continueRendering(GuideItem guideItem);
 
     private void renderName(GuideItem guideItem) {
-        this.guideItemName.setText(guideItem.getName());
+        guideItemName.setText(guideItem.getName());
     }
 
     private void renderCover(GuideItem guideItem) {
@@ -76,11 +76,11 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
     }
 
     private void renderCategory(GuideItem guideItem) {
-        this.guideItemCategory.setText(guideItem.getCategory());
+        guideItemCategory.setText(guideItem.getCategory());
     }
 
     private void renderShortDescription(GuideItem guideItem) {
-        this.guideItemShortDescription.setText(guideItem.getShortDescription());
+        guideItemShortDescription.setText(guideItem.getShortDescription());
     }
 
 }

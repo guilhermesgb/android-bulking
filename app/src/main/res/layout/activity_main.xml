@@ -90,7 +90,7 @@
             app:rippleColor="@color/jfl_blue"
             app:borderWidth="@dimen/fab_border_width"
             app:pressedTranslationZ="12dp"
-            app:elevation="10dp"
+            app:elevation="6dp"
             app:fabSize="mini"/>
 
     </android.support.design.widget.CoordinatorLayout>

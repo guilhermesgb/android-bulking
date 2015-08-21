@@ -1,12 +1,15 @@
 package com.guilhermesgb.robospiceretrofit.view.renderers;
 
 import android.content.Context;
+import android.support.design.widget.TextInputLayout;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.guilhermesgb.robospiceretrofit.R;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
-import com.guilhermesgb.robospiceretrofit.view.widgets.IconEditText;
-import com.guilhermesgb.robospiceretrofit.view.widgets.IconTextInputLayout;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.MaterialIcons;
 
@@ -14,31 +17,27 @@ import butterknife.Bind;
 
 public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
-    @Bind(R.id.guide_item_venue_phone) IconEditText guideItemVenuePhone;
-    @Bind(R.id.guide_item_venue_phone_wrapper) IconTextInputLayout guideItemVenuePhoneWrapper;
+    @Bind(R.id.guide_item_venue_phone) EditText guideItemVenuePhone;
+    @Bind(R.id.guide_item_venue_phone_wrapper) TextInputLayout guideItemVenuePhoneWrapper;
     final IconDrawable phoneIcon = new IconDrawable(getContext(),
             MaterialIcons.md_local_phone).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
-    final String ICON_PHONE = "{md_local_phone}";
-    @Bind(R.id.guide_item_venue_website) IconEditText guideItemVenueWebsite;
-    @Bind(R.id.guide_item_venue_website_wrapper)
-    IconTextInputLayout guideItemVenueWebsiteWrapper;
+    @Bind(R.id.guide_item_venue_website) EditText guideItemVenueWebsite;
+    @Bind(R.id.guide_item_venue_website_wrapper) TextInputLayout guideItemVenueWebsiteWrapper;
     final IconDrawable websiteIcon = new IconDrawable(getContext(),
             MaterialIcons.md_language).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
-    final String ICON_WEBSITE = "{md_language}";
-    @Bind(R.id.guide_item_venue_email) IconEditText guideItemVenueEmail;
-    @Bind(R.id.guide_item_venue_email_wrapper) IconTextInputLayout guideItemVenueEmailWrapper;
+    @Bind(R.id.guide_item_venue_email) EditText guideItemVenueEmail;
+    @Bind(R.id.guide_item_venue_email_wrapper) TextInputLayout guideItemVenueEmailWrapper;
     final IconDrawable emailIcon = new IconDrawable(getContext(),
             MaterialIcons.md_local_post_office).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
-    final String ICON_EMAIL = "{md_local_post_office}";
-    @Bind(R.id.guide_item_venue_address) IconEditText guideItemVenueAddress;
-    @Bind(R.id.guide_item_venue_address_wrapper) IconTextInputLayout guideItemVenueAddressWrapper;
+    @Bind(R.id.guide_item_venue_address) EditText guideItemVenueAddress;
+    @Bind(R.id.guide_item_venue_address_wrapper) TextInputLayout guideItemVenueAddressWrapper;
     final IconDrawable addressIcon = new IconDrawable(getContext(),
             MaterialIcons.md_location_on).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
-    final String ICON_ADDRESS = "{md_location_on}";
+    @Bind(R.id.guide_item_venue_cost) TextView guideItemVenueCost;
 
     public VenueGuideItemRenderer(Context context) {
         super(context);
@@ -50,10 +49,10 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
         renderWebsite(guideItem);
         renderEmail(guideItem);
         renderAddress(guideItem);
+        renderCost(guideItem);
     }
 
     private void renderPhone(GuideItem guideItem) {
-        guideItemVenuePhoneWrapper.setHint(getContext().getString(R.string.label_email), ICON_PHONE);
         guideItemVenuePhone.setCompoundDrawablesWithIntrinsicBounds(null, null, phoneIcon, null);
         final String phone = guideItem.getPhone();
         if (phone == null || phone.isEmpty()) {
@@ -67,7 +66,6 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
     }
 
     private void renderWebsite(GuideItem guideItem) {
-        guideItemVenueWebsiteWrapper.setHint(getContext().getString(R.string.label_email), ICON_WEBSITE);
         guideItemVenueWebsite.setCompoundDrawablesWithIntrinsicBounds(null, null, websiteIcon, null);
         final String website = guideItem.getWebsite();
         if (website == null || website.isEmpty()) {
@@ -81,7 +79,6 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
     }
 
     private void renderEmail(GuideItem guideItem) {
-        guideItemVenueEmailWrapper.setHint(getContext().getString(R.string.label_email), ICON_EMAIL);
         guideItemVenueEmail.setCompoundDrawablesWithIntrinsicBounds(null, null, emailIcon, null);
         final String email = guideItem.getEmail();
         if (email == null || email.isEmpty()) {
@@ -95,7 +92,6 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
     }
 
     private void renderAddress(GuideItem guideItem) {
-        guideItemVenueAddressWrapper.setHint(getContext().getString(R.string.label_address), ICON_ADDRESS);
         guideItemVenueAddress.setCompoundDrawablesWithIntrinsicBounds(null, null, addressIcon, null);
         final String address = guideItem.getAddress();
         if (address == null || address.isEmpty()) {
@@ -106,6 +102,10 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
             guideItemVenueAddress.setText(address);
             guideItemVenueAddress.setEnabled(false);
         }
+    }
+
+    private void renderCost(GuideItem guideItem) {
+        guideItemVenueCost.setText(guideItem.getCost());
     }
 
 }

@@ -1,1 +1,1 @@
-include ':app', ':circularcounter'
+include ':app'
