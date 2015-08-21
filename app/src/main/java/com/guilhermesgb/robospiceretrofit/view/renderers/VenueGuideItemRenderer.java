@@ -24,6 +24,7 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
             .sizeRes(R.dimen.venue_property_icon_size);
     @Bind(R.id.guide_item_venue_website) EditText guideItemVenueWebsite;
     @Bind(R.id.guide_item_venue_website_wrapper) TextInputLayout guideItemVenueWebsiteWrapper;
+    @Bind(R.id.guide_item_venue_website_marquee) TextView guideItemVenueWebsiteMarquee;
     final IconDrawable websiteIcon = new IconDrawable(getContext(),
             MaterialIcons.md_language).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
@@ -67,12 +68,19 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
     private void renderWebsite(GuideItem guideItem) {
         guideItemVenueWebsite.setCompoundDrawablesWithIntrinsicBounds(null, null, websiteIcon, null);
+        guideItemVenueWebsiteMarquee.setSelected(true);
         final String website = guideItem.getWebsite();
         if (website == null || website.isEmpty()) {
             guideItemVenueWebsiteWrapper.setVisibility(View.GONE);
         }
         else {
             guideItemVenueWebsiteWrapper.setVisibility(View.VISIBLE);
+            guideItemVenueWebsiteMarquee.setVisibility(View.VISIBLE);
+            guideItemVenueWebsiteMarquee.setText(website + "   " + getContext()
+                    .getString(R.string.label_website_icon));
+            guideItemVenueWebsiteMarquee.setSelected(true);
+            guideItemVenueWebsite.setVisibility(View.INVISIBLE);
+            guideItemVenueWebsite.setHeight(0);
             guideItemVenueWebsite.setText(website);
             guideItemVenueWebsite.setEnabled(false);
         }

@@ -9,7 +9,5 @@
     <dimen name="venue_property_row_margin">5dp</dimen>
     <dimen name="venue_property_item_padding">4dp</dimen>
     <dimen name="venue_property_icon_size">30dp</dimen>
-    <dimen name="venue_property_cost_min_bar_width">25dp</dimen>
-    <dimen name="venue_property_cost_max_bar_width">30dp</dimen>
-    <dimen name="venue_property_cost_outer_bar_width">15dp</dimen>
+    <dimen name="venue_property_icon_size_small">18dp</dimen>
 </resources>
