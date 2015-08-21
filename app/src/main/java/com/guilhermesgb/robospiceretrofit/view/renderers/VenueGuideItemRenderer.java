@@ -88,32 +88,61 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
         }
         contactProperty.setCompoundDrawablesWithIntrinsicBounds(null, null, contactPropertyIcon, null);
         contactPropertyWrapper.setVisibility(View.VISIBLE);
+        contactPropertyMarquee.setVisibility(View.VISIBLE);
+        contactPropertyMarquee.setSelected(true);
         contactPropertyMarquee.setOnLongClickListener(new View.OnLongClickListener() {
+
             @Override
             public boolean onLongClick(View view) {
-                contactProperty.setVisibility(View.VISIBLE);
-                contactProperty.setEnabled(true);
-                contactPropertyMarquee.setVisibility(View.INVISIBLE);
-                return true;
+                return enableVenueContactPropertyEditMode(contactProperty, contactPropertyMarquee);
             }
+
         });
         contactProperty.setText(contactPropertyValue);
         contactProperty.setOnLongClickListener(new View.OnLongClickListener() {
+
             @Override
             public boolean onLongClick(View view) {
-                if (contactProperty.getText().toString().trim().isEmpty()) {
-                    return false;
-                }
-                contactProperty.setVisibility(View.INVISIBLE);
-                contactProperty.setEnabled(false);
-                contactPropertyMarquee.setVisibility(View.VISIBLE);
-                contactPropertyMarquee.setSelected(true);
-                contactPropertyMarquee.setText(contactProperty.getText() + "   " +  getContext()
-                        .getString(contactPropertyIconRes));
-                return true;
+                return disableVenueContactPropertyEditMode(contactProperty,
+                        contactPropertyMarquee, contactPropertyIconRes);
             }
+
         });
-        contactProperty.performLongClick();
+/*        contactProperty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (!hasFocus) {
+                    disableVenueContactPropertyEditMode(contactProperty,
+                            contactPropertyMarquee, contactPropertyIconRes);
+                }
+            }
+
+        });*/
+        disableVenueContactPropertyEditMode(contactProperty,
+                contactPropertyMarquee, contactPropertyIconRes);
+    }
+
+    private boolean enableVenueContactPropertyEditMode(final EditText contactProperty,
+                                                       final TextView contactPropertyMarquee) {
+        contactProperty.setVisibility(View.VISIBLE);
+        contactProperty.setEnabled(true);
+        contactPropertyMarquee.setVisibility(View.INVISIBLE);
+        return true;
+    }
+
+    private boolean disableVenueContactPropertyEditMode(final EditText contactProperty,
+                 final TextView contactPropertyMarquee, final int contactPropertyIconRes) {
+        if (contactProperty.getText().toString().trim().isEmpty()) {
+            return false;
+        }
+        contactProperty.setVisibility(View.INVISIBLE);
+        contactProperty.setEnabled(false);
+        contactPropertyMarquee.setVisibility(View.VISIBLE);
+        contactPropertyMarquee.setSelected(true);
+        contactPropertyMarquee.setText(contactProperty.getText() + "   " +  getContext()
+                .getString(contactPropertyIconRes));
+        return true;
     }
 
     private void renderCost(GuideItem guideItem) {
