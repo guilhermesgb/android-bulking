@@ -33,6 +33,19 @@
                 android:textSize="@dimen/venue_property_text_size"
                 android:maxLines="1"/>
 
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/guide_item_venue_phone_marquee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/venue_property_text_size"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:freezesText="true"
+                android:singleLine="true"/>
+
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -55,7 +68,6 @@
                 android:id="@+id/guide_item_venue_website_marquee"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_website_icon"
                 android:textSize="@dimen/venue_property_text_size"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"

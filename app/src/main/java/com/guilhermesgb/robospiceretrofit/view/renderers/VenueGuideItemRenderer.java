@@ -16,13 +16,14 @@ import butterknife.Bind;
 public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
     @Bind(R.id.guide_item_venue_phone) EditText guideItemVenuePhone;
+    @Bind(R.id.guide_item_venue_phone_marquee) TextView guideItemVenuePhoneMarquee;
     @Bind(R.id.guide_item_venue_phone_wrapper) TextInputLayout guideItemVenuePhoneWrapper;
     final IconDrawable guideItemVenuePhoneIcon = new IconDrawable(getContext(),
             MaterialIcons.md_local_phone).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
     @Bind(R.id.guide_item_venue_website) EditText guideItemVenueWebsite;
-    @Bind(R.id.guide_item_venue_website_wrapper) TextInputLayout guideItemVenueWebsiteWrapper;
     @Bind(R.id.guide_item_venue_website_marquee) TextView guideItemVenueWebsiteMarquee;
+    @Bind(R.id.guide_item_venue_website_wrapper) TextInputLayout guideItemVenueWebsiteWrapper;
     final IconDrawable guideItemVenueWebsiteIcon = new IconDrawable(getContext(),
             MaterialIcons.md_language).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
@@ -53,15 +54,8 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
     private void renderPhone(GuideItem guideItem) {
         final String phone = guideItem.getPhone();
-        guideItemVenuePhone.setCompoundDrawablesWithIntrinsicBounds(null, null, guideItemVenuePhoneIcon, null);
-        if (phone == null || phone.isEmpty()) {
-            guideItemVenuePhoneWrapper.setVisibility(View.GONE);
-        }
-        else {
-            guideItemVenuePhoneWrapper.setVisibility(View.VISIBLE);
-            guideItemVenuePhone.setText(phone);
-            guideItemVenuePhone.setEnabled(false);
-        }
+        renderVenueContactProperty(guideItemVenuePhone, guideItemVenuePhoneMarquee,
+                guideItemVenuePhoneWrapper, guideItemVenuePhoneIcon, R.string.label_phone_icon, phone);
     }
 
     private void renderWebsite(GuideItem guideItem) {
