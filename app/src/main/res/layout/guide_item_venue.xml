@@ -153,4 +153,51 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/guide_item_venue_properties_second_row_marquee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:baselineAligned="false"
+        android:layout_below="@+id/guide_item_venue_properties_first_row"
+        android:layout_marginStart="@dimen/venue_property_row_margin"
+        android:layout_marginLeft="@dimen/venue_property_row_margin"
+        android:layout_marginEnd="@dimen/venue_property_row_margin"
+        android:layout_marginRight="@dimen/venue_property_row_margin"
+        android:layout_marginBottom="@dimen/venue_property_row_bottom_margin"
+        android:layout_alignBottom="@+id/guide_item_venue_properties_second_row">
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/guide_item_venue_email_marquee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/venue_property_item_padding"
+            android:textSize="@dimen/venue_property_text_size"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:singleLine="true"/>
+
+        <com.joanzapata.iconify.widget.IconTextView
+            android:id="@+id/guide_item_venue_address_marquee"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:padding="@dimen/venue_property_item_padding"
+            android:textSize="@dimen/venue_property_text_size"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:freezesText="true"
+            android:singleLine="true"/>
+
+    </LinearLayout>
+
 </RelativeLayout>
