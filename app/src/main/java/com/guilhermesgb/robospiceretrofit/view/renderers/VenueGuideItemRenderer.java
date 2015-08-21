@@ -76,8 +76,8 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
         else {
             guideItemVenueWebsiteWrapper.setVisibility(View.VISIBLE);
             guideItemVenueWebsiteMarquee.setVisibility(View.VISIBLE);
-            guideItemVenueWebsiteMarquee.setText(website + "   " + getContext()
-                    .getString(R.string.label_website_icon));
+            guideItemVenueWebsiteMarquee.setText(getContext()
+                    .getString(R.string.label_website_icon) + "   " + website);
             guideItemVenueWebsiteMarquee.setSelected(true);
             guideItemVenueWebsite.setVisibility(View.INVISIBLE);
             guideItemVenueWebsite.setHeight(0);
@@ -114,6 +114,7 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
     private void renderCost(GuideItem guideItem) {
         guideItemVenueCost.setText(guideItem.getCost());
+        guideItemVenueCost.setSelected(true);
     }
 
 }
