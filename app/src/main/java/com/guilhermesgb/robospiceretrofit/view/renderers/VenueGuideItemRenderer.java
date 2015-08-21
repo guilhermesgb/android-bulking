@@ -108,8 +108,8 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
                 contactProperty.setEnabled(false);
                 contactPropertyMarquee.setVisibility(View.VISIBLE);
                 contactPropertyMarquee.setSelected(true);
-                contactPropertyMarquee.setText(getContext()
-                        .getString(contactPropertyIconRes) + "   " + contactProperty.getText());
+                contactPropertyMarquee.setText(contactProperty.getText() + "   " +  getContext()
+                        .getString(contactPropertyIconRes));
                 return true;
             }
         });
