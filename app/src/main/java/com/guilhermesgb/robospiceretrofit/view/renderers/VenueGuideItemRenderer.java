@@ -2,7 +2,9 @@ package com.guilhermesgb.robospiceretrofit.view.renderers;
 
 import android.content.Context;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -38,19 +40,32 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
             MaterialIcons.md_location_on).colorRes(R.color.jfl_yellow)
             .sizeRes(R.dimen.venue_property_icon_size);
     @Bind(R.id.guide_item_venue_cost) TextView guideItemVenueCost;
+//    int contactPropertyOriginalHeight;
 
     public VenueGuideItemRenderer(Context context) {
         super(context);
     }
 
     @Override
-         protected void continueRendering(GuideItem guideItem) {
+    protected void continueRendering(GuideItem guideItem) {
+//        determineOriginalContactPropertyHeight();
         renderPhone(guideItem);
         renderWebsite(guideItem);
         renderEmail(guideItem);
         renderAddress(guideItem);
         renderCost(guideItem);
     }
+
+/*    private void determineOriginalContactPropertyHeight() {
+        ViewTreeObserver observer = guideItemVenuePhone.getViewTreeObserver();
+        ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                contactPropertyOriginalHeight = guideItemVenuePhone.getHeight();
+            }
+        };
+        observer.addOnGlobalLayoutListener(listener);
+    }*/
 
     private void renderPhone(GuideItem guideItem) {
         final String phone = guideItem.getPhone();
@@ -90,25 +105,45 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
         }
     }
 
-    private void renderVenueContactProperty(EditText contactProperty, TextView contactPropertyMarquee,
-            TextInputLayout contactPropertyWrapper, IconDrawable contactPropertyIcon,
-            int contactPropertyIconRes, String contactPropertyValue) {
-        contactPropertyMarquee.setSelected(true);
-        contactProperty.setCompoundDrawablesWithIntrinsicBounds(null, null, contactPropertyIcon, null);
+    private void renderVenueContactProperty(final EditText contactProperty, final TextView contactPropertyMarquee,
+            final TextInputLayout contactPropertyWrapper, final IconDrawable contactPropertyIcon,
+            final int contactPropertyIconRes, final String contactPropertyValue) {
         if (contactPropertyValue == null || contactPropertyValue.isEmpty()) {
             contactPropertyWrapper.setVisibility(View.GONE);
+            contactPropertyMarquee.setVisibility(View.GONE);
+            return;
         }
-        else {
-            contactPropertyWrapper.setVisibility(View.VISIBLE);
-            contactPropertyMarquee.setVisibility(View.VISIBLE);
-            contactPropertyMarquee.setText(getContext()
-                    .getString(contactPropertyIconRes) + "   " + contactPropertyValue);
-            contactPropertyMarquee.setSelected(true);
-            contactProperty.setVisibility(View.INVISIBLE);
-            contactProperty.setHeight(0);
-            contactProperty.setText(contactPropertyValue);
-            contactProperty.setEnabled(false);
-        }
+        contactProperty.setCompoundDrawablesWithIntrinsicBounds(null, null, contactPropertyIcon, null);
+        contactPropertyWrapper.setVisibility(View.VISIBLE);
+        contactPropertyMarquee.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+//                contactProperty.setHeight(contactPropertyOriginalHeight);
+//                Log.wtf("TAG_LOG", "SETTING HEIGHT OF " + contactPropertyValue + " TO: " + contactPropertyOriginalHeight);
+                contactProperty.setVisibility(View.VISIBLE);
+                contactProperty.setEnabled(true);
+                contactPropertyMarquee.setVisibility(View.INVISIBLE);
+                return true;
+            }
+        });
+        contactProperty.setText(contactPropertyValue);
+        contactProperty.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+//                contactProperty.setHeight(0);
+                if (contactProperty.getText().toString().trim().isEmpty()) {
+                    return false;
+                }
+                contactProperty.setVisibility(View.INVISIBLE);
+                contactProperty.setEnabled(false);
+                contactPropertyMarquee.setVisibility(View.VISIBLE);
+                contactPropertyMarquee.setSelected(true);
+                contactPropertyMarquee.setText(getContext()
+                        .getString(contactPropertyIconRes) + "   " + contactProperty.getText());
+                return true;
+            }
+        });
+        contactProperty.performLongClick();
     }
 
     private void renderCost(GuideItem guideItem) {
