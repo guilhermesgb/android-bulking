@@ -5,7 +5,6 @@ import android.widget.TextView;
 
 import com.guilhermesgb.robospiceretrofit.R;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 

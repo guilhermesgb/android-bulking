@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.guilhermesgb.robospiceretrofit.R;
 import com.guilhermesgb.robospiceretrofit.model.GuideItem;
 import com.pedrogomez.renderers.Renderer;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,7 +69,7 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
             guideItemCover.setImageResource(R.drawable.cover_jfl_alarmes_backup);
             return;
         }
-        Glide.with(getContext())
+        Picasso.with(getContext())
                 .load(imagePath)
                 .error(R.drawable.cover_jfl_alarmes)
                 .into(guideItemCover);
