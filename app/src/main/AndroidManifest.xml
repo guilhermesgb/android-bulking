@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.guilhermesgb.robospiceretrofit">
+    package="com.guilhermesgb.bulking">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
-        android:name="com.guilhermesgb.robospiceretrofit.view.MainApplication"
+        android:name="com.guilhermesgb.bulking.view.MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.guilhermesgb.robospiceretrofit.view.MainActivity"
+            android:name="com.guilhermesgb.bulking.view.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -25,11 +25,11 @@
         </activity>
 
         <service
-            android:name="com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService"
+            android:name="com.guilhermesgb.bulking.presenter.network.WordPressCMSRetrofitSpiceService"
             android:exported="false"/>
 
         <service
-            android:name="com.guilhermesgb.robospiceretrofit.model.storage.OfflineSpiceService"
+            android:name="com.guilhermesgb.bulking.model.storage.OfflineSpiceService"
             android:exported="false"/>
 
         <meta-data
