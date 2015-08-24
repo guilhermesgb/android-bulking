@@ -108,19 +108,40 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
             }
 
         });
-/*        contactProperty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (!hasFocus) {
-                    disableVenueContactPropertyEditMode(contactProperty,
-                            contactPropertyMarquee, contactPropertyIconRes);
-                }
-            }
-
-        });*/
+        final View.OnFocusChangeListener existingListener = contactProperty.getOnFocusChangeListener();
+        if (!(existingListener instanceof DisableEditModeOnFocusChangeListener)) {
+            contactProperty.setOnFocusChangeListener(new DisableEditModeOnFocusChangeListener(contactProperty,
+                    contactPropertyMarquee, contactPropertyIconRes, existingListener));
+        }
         disableVenueContactPropertyEditMode(contactProperty,
                 contactPropertyMarquee, contactPropertyIconRes);
+    }
+
+    class DisableEditModeOnFocusChangeListener implements View.OnFocusChangeListener {
+
+        private final EditText contactProperty;
+        private final TextView contactPropertyMarquee;
+        private final int contactPropertyIconRes;
+        private final View.OnFocusChangeListener previousListener;
+
+        public DisableEditModeOnFocusChangeListener(final EditText contactProperty,
+              final TextView contactPropertyMarquee, final int contactPropertyIconRes,
+                                                     final View.OnFocusChangeListener previousListener) {
+            this.previousListener = previousListener;
+            this.contactProperty = contactProperty;
+            this.contactPropertyMarquee = contactPropertyMarquee;
+            this.contactPropertyIconRes = contactPropertyIconRes;
+        }
+
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+            previousListener.onFocusChange(view, hasFocus);
+            if (!hasFocus) {
+                disableVenueContactPropertyEditMode(contactProperty,
+                        contactPropertyMarquee, contactPropertyIconRes);
+            }
+        }
+
     }
 
     private boolean enableVenueContactPropertyEditMode(final EditText contactProperty,
