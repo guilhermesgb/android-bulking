@@ -41,6 +41,6 @@ dependencies {
     compile 'com.hannesdorfmann.mosby:core:1.2.0'
     compile 'com.hannesdorfmann.mosby:mvp:1.2.0'
     compile 'com.hannesdorfmann.mosby:viewstate:1.2.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.joanzapata.iconify:android-iconify-material:2.0.7'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
 }
