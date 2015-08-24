@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/card_vertical_margin"
+    android:layout_marginBottom="@dimen/card_vertical_margin"
+    android:layout_marginStart="@dimen/card_horizontal_margin"
+    android:layout_marginLeft="@dimen/card_horizontal_margin"
+    android:layout_marginEnd="@dimen/card_horizontal_margin"
+    android:layout_marginRight="@dimen/card_horizontal_margin"
+    card_view:cardCornerRadius="4dp"
+    app:elevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/guide_item_core"/>
+
+        <include
+            layout="@layout/guide_item_description"
+            android:id="@+id/guide_item_short_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/guide_item_category"/>
+
+        <LinearLayout
+            android:id="@+id/guide_item_venue_properties_first_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:baselineAligned="false"
+            android:layout_marginStart="@dimen/venue_property_row_margin"
+            android:layout_marginLeft="@dimen/venue_property_row_margin"
+            android:layout_marginEnd="@dimen/venue_property_row_margin"
+            android:layout_marginRight="@dimen/venue_property_row_margin">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="@dimen/venue_property_item_padding">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/guide_item_venue_phone_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true">
+
+                    <EditText
+                        android:id="@+id/guide_item_venue_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone"
+                        android:hint="@string/label_phone"
+                        android:textSize="@dimen/venue_property_text_size"
+                        android:maxLines="1"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/guide_item_venue_phone_marquee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:paddingLeft="@dimen/venue_property_item_padding"
+                    android:paddingBottom="@dimen/venue_property_row_bottom_margin"
+                    android:textSize="@dimen/venue_property_text_size"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:singleLine="true"
+                    tools:ignore="RtlHardcoded,RtlSymmetry"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:padding="@dimen/venue_property_item_padding">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/guide_item_venue_website_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true">
+
+                    <EditText
+                        android:id="@+id/guide_item_venue_website"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textUri"
+                        android:hint="@string/label_website"
+                        android:textSize="@dimen/venue_property_text_size"
+                        android:maxLines="1"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/guide_item_venue_website_marquee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:paddingLeft="@dimen/venue_property_item_padding"
+                    android:paddingBottom="@dimen/venue_property_row_bottom_margin"
+                    android:textSize="@dimen/venue_property_text_size"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:scrollHorizontally="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:freezesText="true"
+                    android:singleLine="true"
+                    tools:ignore="RtlHardcoded,RtlSymmetry"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

@@ -26,6 +26,9 @@ public class GuideItemsRendererBuilder extends RendererBuilder<GuideItem> {
                 case "FOOD_DRINK":
                 case "NIGHT_LIFE":
                     return SchedulableVenueGuideItemRenderer.class;
+                case "TOURS":
+                case "SHOP":
+                    return LeisureGuideItemRenderer.class;
                 default:
                     return SimpleGuideItemRenderer.class;
             }
@@ -38,6 +41,7 @@ public class GuideItemsRendererBuilder extends RendererBuilder<GuideItem> {
         prototypes.add(new SimpleGuideItemRenderer(context));
         prototypes.add(new SchedulableVenueGuideItemRenderer(context));
         prototypes.add(new HotelGuideItemRenderer(context));
+        prototypes.add(new LeisureGuideItemRenderer(context));
         return prototypes;
     }
 

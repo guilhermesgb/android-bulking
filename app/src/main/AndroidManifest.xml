@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.guilhermesgb.robospiceretrofit" >
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.guilhermesgb.robospiceretrofit">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name="com.guilhermesgb.robospiceretrofit.view.MainApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.guilhermesgb.robospiceretrofit.view.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <service
-            android:name=".presenter.network.WordPressCMSRetrofitSpiceService"
-            android:exported="false" />
+            android:name="com.guilhermesgb.robospiceretrofit.presenter.network.WordPressCMSRetrofitSpiceService"
+            android:exported="false"/>
 
         <service
-            android:name=".model.storage.OfflineSpiceService"
-            android:exported="false" />
+            android:name="com.guilhermesgb.robospiceretrofit.model.storage.OfflineSpiceService"
+            android:exported="false"/>
 
         <meta-data
             android:name="AA_DB_NAME"
-            android:value="oviajante.db" />
+            android:value="oviajante.db"/>
         <meta-data
             android:name="AA_DB_VERSION"
-            android:value="2" />
+            android:value="2"/>
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.guilhermesgb.robospiceretrofit.model.GuideItem" />
+            android:value="com.guilhermesgb.robospiceretrofit.model.GuideItem"/>
 
     </application>
 
