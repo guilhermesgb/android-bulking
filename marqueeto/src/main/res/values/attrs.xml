@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="LabelledMarqueeEditText">
+
+        <attr name="android:text"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="android:hint"/>
+        <attr name="baseColor" format="color"/>
+        <attr name="highlightColor" format="color"/>
+        <attr name="iconColor" format="color"/>
+        <attr name="iconKey" format="string"/>
+        <attr name="labelColor" format="color"/>
+        <attr name="errorColor" format="color"/>
+        <attr name="error" format="string"/>
+        <attr name="errorEnabled"/>
+        <attr name="mode" format="enum">
+            <enum name="edit" value="0"/>
+            <enum name="marquee" value="1"/>
+        </attr>
+        <attr name="android:inputType"/>
+        <attr name="labelledMarqueeEditTextStyle" format="reference"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="RippleView">
+
+        <attr name="rv_alpha" format="integer" />
+        <attr name="rv_framerate" format="integer"/>
+        <attr name="rv_rippleDuration" format="integer"/>
+        <attr name="rv_zoomDuration" format="integer" />
+        <attr name="rv_color" format="color" />
+        <attr name="rv_centered" format="boolean" />
+        <attr name="rv_type" format="enum">
+            <enum name="simpleRipple" value="0"/>
+            <enum name="doubleRipple" value="1"/>
+            <enum name="rectangle" value="2" />
+        </attr>
+        <attr name="rv_ripplePadding" format="dimension" />
+        <attr name="rv_zoom" format="boolean" />
+        <attr name="rv_zoomScale" format="float" />
+
+    </declare-styleable>
+
+</resources>

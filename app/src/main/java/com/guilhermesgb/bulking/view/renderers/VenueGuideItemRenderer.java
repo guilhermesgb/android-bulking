@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.github.guilhermesgb.marqueeto.LabelledMarqueeEditText;
 import com.guilhermesgb.bulking.R;
 import com.guilhermesgb.bulking.model.GuideItem;
 import com.joanzapata.iconify.IconDrawable;
@@ -15,12 +16,7 @@ import butterknife.Bind;
 
 public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
-    @Bind(R.id.guide_item_venue_phone) EditText guideItemVenuePhone;
-    @Bind(R.id.guide_item_venue_phone_marquee) TextView guideItemVenuePhoneMarquee;
-    @Bind(R.id.guide_item_venue_phone_wrapper) TextInputLayout guideItemVenuePhoneWrapper;
-    final IconDrawable guideItemVenuePhoneIcon = new IconDrawable(getContext(),
-            MaterialIcons.md_local_phone).colorRes(R.color.jfl_yellow)
-            .sizeRes(R.dimen.venue_property_icon_size);
+    @Bind(R.id.guide_item_venue_phone) LabelledMarqueeEditText guideItemVenuePhone;
     @Bind(R.id.guide_item_venue_website) EditText guideItemVenueWebsite;
     @Bind(R.id.guide_item_venue_website_marquee) TextView guideItemVenueWebsiteMarquee;
     @Bind(R.id.guide_item_venue_website_wrapper) TextInputLayout guideItemVenueWebsiteWrapper;
@@ -56,8 +52,7 @@ public abstract class VenueGuideItemRenderer extends GuideItemRenderer {
 
     private void renderPhone(GuideItem guideItem) {
         final String phone = guideItem.getPhone();
-        renderVenueContactProperty(guideItemVenuePhone, guideItemVenuePhoneMarquee,
-                guideItemVenuePhoneWrapper, guideItemVenuePhoneIcon, R.string.label_phone_icon, phone);
+        guideItemVenuePhone.setText(phone);
     }
 
     private void renderWebsite(GuideItem guideItem) {
