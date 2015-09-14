@@ -66,7 +66,7 @@ public abstract class GuideItemRenderer extends Renderer<GuideItem> {
     private void renderCover(GuideItem guideItem) {
         final String imagePath = guideItem.getImageUrl();
         if (imagePath == null || imagePath.isEmpty()) {
-            guideItemCover.setImageResource(R.drawable.cover_jfl_alarmes_backup);
+            //guideItemCover.setImageResource(R.drawable.cover_jfl_alarmes_backup);
             return;
         }
         Picasso.with(getContext())
