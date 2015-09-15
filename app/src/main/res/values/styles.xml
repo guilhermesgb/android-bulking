@@ -24,11 +24,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.Design.Hint" parent="TextAppearance.AppCompat.Caption">
+    <!--<style name="TextAppearance.Design.Hint" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textColor">@color/jfl_yellow</item>
     </style>
     <style name="Widget.Design.TextInputLayout" parent="android:Widget">
         <item name="hintTextAppearance">@style/TextAppearance.Design.Hint</item>
-    </style>
+    </style>-->
 
 </resources>

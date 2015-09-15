@@ -27,26 +27,19 @@
             android:inputType="phone"
             android:hint="@string/label_phone"
             android:textSize="@dimen/venue_property_text_size"
-            marqueeto:iconKey="md-local-phone"
+            marqueeto:iconKey="@string/label_phone_icon"
             marqueeto:labelledMarqueeEditTextStyle="@style/LabelledMarqueeEditTextCustom"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/guide_item_venue_website_wrapper"
+        <com.github.guilhermesgb.marqueeto.LabelledMarqueeEditText
+            android:id="@+id/guide_item_venue_website"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:padding="@dimen/venue_property_item_padding">
-
-            <EditText
-                android:id="@+id/guide_item_venue_website"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textUri"
-                android:hint="@string/label_website"
-                android:textSize="@dimen/venue_property_text_size"
-                android:maxLines="1"/>
-
-        </android.support.design.widget.TextInputLayout>
+            android:padding="@dimen/venue_property_item_padding"
+            android:inputType="textUri"
+            android:hint="@string/label_website"
+            android:textSize="@dimen/venue_property_text_size"
+            marqueeto:iconKey="@string/label_website_icon"/>
 
     </LinearLayout>
 
@@ -63,126 +56,28 @@
         android:layout_marginEnd="@dimen/venue_property_row_margin"
         android:layout_marginRight="@dimen/venue_property_row_margin">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/guide_item_venue_email_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="@dimen/venue_property_item_padding">
-
-            <EditText
-                android:id="@+id/guide_item_venue_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="@string/label_email"
-                android:textSize="@dimen/venue_property_text_size"
-                android:maxLines="1"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/guide_item_venue_address_wrapper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="@dimen/venue_property_item_padding">
-
-            <EditText
-                android:id="@+id/guide_item_venue_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:hint="@string/label_address"
-                android:textSize="@dimen/venue_property_text_size"
-                android:maxLines="1"/>
-
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/guide_item_venue_properties_first_row_marquee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:layout_alignParentTop="true"
-        android:baselineAligned="false"
-        android:layout_marginStart="@dimen/venue_property_row_margin"
-        android:layout_marginLeft="@dimen/venue_property_row_margin"
-        android:layout_marginEnd="@dimen/venue_property_row_margin"
-        android:layout_marginRight="@dimen/venue_property_row_margin"
-        android:layout_marginBottom="@dimen/venue_property_row_bottom_margin"
-        android:layout_alignBottom="@+id/guide_item_venue_properties_first_row">
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="@dimen/venue_property_item_padding"/>
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/guide_item_venue_website_marquee"
+        <com.github.guilhermesgb.marqueeto.LabelledMarqueeEditText
+            android:id="@+id/guide_item_venue_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:padding="@dimen/venue_property_item_padding"
+            android:inputType="textEmailAddress"
+            android:hint="@string/label_email"
             android:textSize="@dimen/venue_property_text_size"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:freezesText="true"
-            android:singleLine="true"/>
+            marqueeto:iconKey="@string/label_email_icon"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/guide_item_venue_properties_second_row_marquee"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:baselineAligned="false"
-        android:layout_below="@+id/guide_item_venue_properties_first_row"
-        android:layout_marginStart="@dimen/venue_property_row_margin"
-        android:layout_marginLeft="@dimen/venue_property_row_margin"
-        android:layout_marginEnd="@dimen/venue_property_row_margin"
-        android:layout_marginRight="@dimen/venue_property_row_margin"
-        android:layout_marginBottom="@dimen/venue_property_row_bottom_margin"
-        android:layout_alignBottom="@+id/guide_item_venue_properties_second_row">
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/guide_item_venue_email_marquee"
+        <com.github.guilhermesgb.marqueeto.LabelledMarqueeEditText
+            android:id="@+id/guide_item_venue_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:padding="@dimen/venue_property_item_padding"
+            android:inputType="textPostalAddress"
+            android:hint="@string/label_address"
             android:textSize="@dimen/venue_property_text_size"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:freezesText="true"
-            android:singleLine="true"/>
-
-        <com.joanzapata.iconify.widget.IconTextView
-            android:id="@+id/guide_item_venue_address_marquee"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:padding="@dimen/venue_property_item_padding"
-            android:textSize="@dimen/venue_property_text_size"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:scrollHorizontally="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:freezesText="true"
-            android:singleLine="true"/>
+            marqueeto:iconKey="@string/label_address_icon"
+            marqueeto:labelledMarqueeEditTextStyle="@style/LabelledMarqueeEditTextCustom"/>
 
     </LinearLayout>
 
