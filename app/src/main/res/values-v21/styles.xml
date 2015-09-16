@@ -11,4 +11,9 @@
         <item name="android:colorControlActivated">@color/jfl_blue</item>
     </style>
 
+    <style name="LabelledMarqueeEditTextCustom">
+        <item name="baseColor">@color/jfl_blue</item>
+        <item name="highlightColor">@color/jfl_yellow</item>
+    </style>
+
 </resources>
