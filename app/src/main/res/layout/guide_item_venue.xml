@@ -22,7 +22,7 @@
             android:id="@+id/guide_item_venue_phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:padding="@dimen/venue_property_item_padding"
             android:inputType="phone"
             android:hint="@string/label_phone"
@@ -39,7 +39,8 @@
             android:inputType="textUri"
             android:hint="@string/label_website"
             android:textSize="@dimen/venue_property_text_size"
-            marqueeto:iconKey="@string/label_website_icon"/>
+            marqueeto:iconKey="@string/label_website_icon"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -65,13 +66,14 @@
             android:inputType="textEmailAddress"
             android:hint="@string/label_email"
             android:textSize="@dimen/venue_property_text_size"
-            marqueeto:iconKey="@string/label_email_icon"/>
+            marqueeto:iconKey="@string/label_email_icon"
+            android:visibility="gone"/>
 
         <com.github.guilhermesgb.marqueeto.LabelledMarqueeEditText
             android:id="@+id/guide_item_venue_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_weight="1"
             android:padding="@dimen/venue_property_item_padding"
             android:inputType="textPostalAddress"
             android:hint="@string/label_address"
